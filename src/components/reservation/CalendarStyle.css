@@ -1,0 +1,94 @@
+/* 기본 Calendar 스타일링 */
+.react-calendar {
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #aaa;
+    width: 340px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 20px 20px;
+}
+
+.react-calendar__navigation__label > span {
+    color: #666;
+}
+
+.react-calendar__month-view__days__day {
+    background-color: white;
+    height: 48.5px;
+    border: none;
+    border-radius: 50%;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    text-align: center;
+    height: 35px;
+    text-decoration: none;
+    color: #666;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background: #C9C1FF;
+    cursor: pointer;
+}
+
+.react-calendar__tile--now {
+    background: white;
+    /* color: #aaa; */
+}
+
+.react-calendar__tile--active {
+    background: #C9C1FF;
+    color: white;
+}
+
+/* 날짜 월 화살표 박스 */
+.react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* 날짜 월 박스 */
+.react-calendar__navigation__label {
+    background: white;
+    border: none;
+    cursor: default;
+    font-size: 17px;
+    font-weight: bold;
+    pointer-events: none; /* 클릭 비활성화 */
+}
+
+/* 화살표 박스 */
+.react-calendar__navigation__arrow {
+    background: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em; /* 원하는 크기로 조절 */
+    width: 30px; /* 상자 크기를 자동으로 조절 */
+    height: 30px; /* 높이를 자동으로 조절 */
+    border-radius: 50%;
+    color: #666;
+}
+
+.react-calendar__navigation__arrow:hover {
+    background-color: #C9C1FF;
+    color: white;
+}
+
+/* abbr 태그의 기본 스타일 제거 */
+.react-calendar__month-view__weekdays__weekday abbr[title] {
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
+
+/* 년도 조정 버튼 없애기 */
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  display: none;
+}

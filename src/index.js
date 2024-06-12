@@ -4,11 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter } from 'react-router-dom';
+
+import { legacy_createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { rootReducers } from './modules';
+import { createLogger } from 'redux-logger';
+
+
+import ScrollToTop from './libs/common/ScrollToTop';
+
+
+const logger = createLogger();
+const store = legacy_createStore(rootReducers, applyMiddleware(logger))
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <ScrollToTop />
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
