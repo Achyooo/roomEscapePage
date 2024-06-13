@@ -1,6 +1,9 @@
 import React from 'react';
+
+
 import styled, { keyframes } from 'styled-components';
 import night_pastel_a from "../../datas/images/night_pastel_a.jpg";
+import { themeDatas } from '../../datas/themeDatas';
 
 const FontContainer = styled.div`
     width: 100%;
@@ -117,7 +120,13 @@ const MainImgInfiniteAni = styled.div`
 
 //////
 
+
+
+
+
 const Main = () => {
+
+
 
     const onAnimationEnd = () => {
         document.querySelector(".mainImgInfiniteAni").style.opacity = 1;
@@ -127,6 +136,7 @@ const Main = () => {
     return (
         <div>
             <FontContainer>
+
                 <MainFontWrapper>
                     <HeadFont>메인 멘트 자리입니다</HeadFont>
                     <SubFont>캐치프레이즈 자리입니다</SubFont>
@@ -135,6 +145,7 @@ const Main = () => {
                 <MainImgAni className="mainImgAni"
                             onAnimationEnd={onAnimationEnd} />
                 <MainImgInfiniteAni className="mainImgInfiniteAni" />
+                
             </FontContainer>
         </div>
     );

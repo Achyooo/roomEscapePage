@@ -58,36 +58,13 @@ const ThemeSelectPlace = styled.div`
         background-color: #F0F0F0;
         border-radius: 4px;
     }
-    /* button{
-        width: 50px;
-        height: 28px;
-        margin-left: 12px;
-        font-size: 14px;
-        background-color: #fff;
-        color: #FFA8B2;
-        border: 1px solid #FFA8B2;
-        border-radius: 4px;
-        cursor: pointer;
-        &:hover{
-            color: #FF949E;
-            border: 1px solid #FF949E;
-            background-color: #FFF2F4;
-        }
-    } */
 `
 
-// 그냥 색깔 저장용으로 남겨놓은거임 이거 안쓰는 스타일임
-// const WriteBtnStyle = styled(Button)`
-//     background-color: #FFB8C2;
-//     &:hover{
-//         background: #FFC8D2;
-//     }
-// `
+
 
 const PostingsPlace = styled.div`
     width: 960px;
     margin: 0px auto;
-    /* border-bottom: 1px solid #ccc; */
 `
 
 
