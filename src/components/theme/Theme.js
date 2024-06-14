@@ -58,6 +58,7 @@ const ReallyOneThemePlace = styled.div`
     flex-direction: row;
     border-bottom: 1px solid #ddd;
     padding: 110px 0px;
+    color: #444;
     &:first-child{
         padding-top: 30px;
     }

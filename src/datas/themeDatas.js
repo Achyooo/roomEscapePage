@@ -1,7 +1,3 @@
-// import sampleImg1 from "./images/sampleImg1.jpg";
-// import sampleImg2 from "./images/sampleImg2.jpg";
-// import sampleImg3 from "./images/sampleImg3.jpg";
-
 import sampleImg_small1 from "./images/sampleImg_small1.png";
 import sampleImg_small2 from "./images/sampleImg_small2.png";
 import sampleImg_small3 from "./images/sampleImg_small3.png";
@@ -11,7 +7,7 @@ export const themeDatas = [
 
     {
         name: "샘플 테마 1",
-        genre: "장르1",
+        genre: "판타지",
         difficulty: 3,
         time: "60",
         numOfPeople: "1~6",
@@ -23,7 +19,7 @@ export const themeDatas = [
 
     {
         name: "샘플 테마 2",
-        genre: "장르2",
+        genre: "추리 · 수사",
         difficulty: 4,
         time: "70",
         numOfPeople: "1~3",
@@ -35,7 +31,7 @@ export const themeDatas = [
 
     {
         name: "샘플 테마 3",
-        genre: "장르3",
+        genre: "스릴러 · 잠입",
         difficulty: 5,
         time: "75",
         numOfPeople: "2~4",
