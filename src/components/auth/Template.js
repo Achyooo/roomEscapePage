@@ -18,6 +18,7 @@ const TemplateDiv = styled.div`
     right: 0;
     background-image: url(${sky_pastel_a}) ;
     background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -5,8 +5,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import styled, { keyframes } from 'styled-components';
 
-import Responsive from '../../../libs/common/Responsive'
-
 import sky_pastel_a from '../../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../../datas/themeDatas'
 

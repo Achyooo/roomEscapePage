@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -13,17 +13,7 @@ import { submit_reservation_register } from '../../modules/reserv';
 
 
 
-const updownAni = keyframes`
-    0% {
-        background-position: center;
-    }
-    50% {
-        background-position: center -470px;
-    }
-    100% {
-        background-position: center;
-    }
-`;
+
 
 const TitleBox = styled.div`
     width: 100%;
@@ -36,7 +26,12 @@ const TitleBox = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 50px;
-    /* animation: ${updownAni} 4s ease-in-out infinite; */
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            margin-top: 100px;
+        `
+    }
 `
 
 const BigTitle = styled.div`
@@ -63,13 +58,27 @@ const ReservationPage = (props) => {
             totalCost,
             list } = props;
 
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
 
 
     return (
         <div>
             <Header></Header>
 
-            <TitleBox>
+            <TitleBox smallerScreen={windowWidth < 950}>
                 <BigTitle>예약하기</BigTitle>
                 <SmallTitle>Making a Reservation</SmallTitle>
             </TitleBox>

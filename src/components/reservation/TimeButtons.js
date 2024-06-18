@@ -1,7 +1,7 @@
 // TimeButtons.js
 
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const TimeButton = styled.button`
     width: 142px;
@@ -20,13 +20,19 @@ const TimeButton = styled.button`
         background-color: ${(props) => (props.disabled ? '#ddd' : '#D9D1FF')};
         border: 1px solid ${(props) => (props.disabled ? '#ddd' : '#D9D1FF')};
     }
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            width: 100px;
+        `}
 `;
 
 const TimeButtons = ({ availableTimes,
                        selectedTheme,
                        selectedDate,
                        onReserve,
-                       list }) => {
+                       list,
+                       smallerScreen }) => {
 
     // console.log(list)
 
@@ -51,6 +57,7 @@ const TimeButtons = ({ availableTimes,
                         key={time}
                         disabled={isReserved}
                         onClick={() => onReserve(selectedTheme, selectedDate, time)}
+                        smallerScreen={smallerScreen}
                     >
                         {time}
                     </TimeButton>

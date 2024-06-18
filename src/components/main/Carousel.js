@@ -8,7 +8,7 @@ import { themeDatas } from '../../datas/themeDatas';
 import styled, { css } from 'styled-components';
 
 // Slick 슬라이더 설정
-const settings = {
+const defaultSettings = {
     dots: false,
     infinite: true,
     speed: 1000,
@@ -52,12 +52,10 @@ const CarouselContainer = styled.div`
     color: #444;
     transition: all 1s;
     opacity: 0;
-    /* transform: translateY(-50px); */
     ${({ inView }) =>
         inView &&
         css`
             opacity: 1;
-            /* transform: translateY(0); */
         `}
 `;
 
@@ -86,7 +84,7 @@ const CarouselDiv = styled.div`
         display: flex;
         justify-content: center;
         padding-top: 10px;
-        .hKhFvi{
+        .itemStar{
             position: static !important;
             margin-left: 0 !important;
         }  
@@ -102,10 +100,36 @@ const carouselList = [ themeDatas[0], themeDatas[1], themeDatas[2] ];
 const Carousel = () => {
 
     const [inView, setInView] = useState(false);
-
     // console.log(inView)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [settings, setSettings] = useState(defaultSettings);
+
+    // 넓이에 따른 크기 조정
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
+    // 넓이 950픽셀 미만일 때
+    useEffect(()=>{
+        if (windowWidth < 950){
+            setSettings({
+                ...defaultSettings,
+                slidesToShow: 1
+            });
+        } else {
+            setSettings(defaultSettings);
+        }
+    },[windowWidth])
 
 
+    // 뷰에 들어오면 실행할 함수
     useEffect(()=>{
         const observer = new IntersectionObserver(
             (etrs) => {
@@ -131,6 +155,9 @@ const Carousel = () => {
             }
         };
     },[]);
+
+
+    
     
 
 
@@ -151,13 +178,13 @@ const Carousel = () => {
                     {carouselList.map((item, idx) => (
                         <CarouselDiv key={idx}>
                             <img src={item.poster}
-                                alt={`이건${idx}번째그림이고요왜안보이징`} />
+                                alt={`안녕이건${idx}번째그림이고요왜안보이징`} />
                             <div className='descArea'>
                                 <div className='itemName'>{item.name}</div>
                                 <div className='itemSecond'>
                                     <span>{item.genre}</span>
                                     <span> │ </span>
-                                    <span><StarRating starNum={item.difficulty}/></span>
+                                    <StarRating className="itemStar" starNum={item.difficulty}/>
                                 </div>
                             </div>
                         </CarouselDiv>

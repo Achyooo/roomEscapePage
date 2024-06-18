@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from '../../libs/common/Header';
 import PostList from '../../components/review/postList/PostList';
@@ -14,17 +14,6 @@ import { new_post, new_title, new_theme, bring_post } from '../../modules/write'
 
 
 
-const updownAni = keyframes`
-    0% {
-        background-position: center;
-    }
-    50% {
-        background-position: center -470px;
-    }
-    100% {
-        background-position: center;
-    }
-`;
 
 const TitleBox = styled.div`
     width: 100%;
@@ -37,7 +26,12 @@ const TitleBox = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 50px;
-    /* animation: ${updownAni} 4s ease-in-out infinite; */
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            margin-top: 100px;
+        `
+    }
 `
 
 const BigTitle = styled.div`
@@ -54,25 +48,40 @@ const SmallTitle = styled.div`
 
 const PostListPage = (props) => {
     const {postings,
-        bring_post,
-        loginUsername,
-        loginNickname,
-        itemsPerPage,
-        lastPage,
-        new_post,
-        new_title,
-        new_theme} = props;
+           bring_post,
+           loginUsername,
+           loginNickname,
+           itemsPerPage,
+           new_post,
+           new_title,
+           new_theme} = props;
 
-// console.log(postings)
-// postings는 초기 데이터. 그 데이터베이스 배열오브젝트 그거임
-// bring_post는 그 아이디유저네임타이틀컨텐츠캐그즈 가져오는 함수
-// console.log(username) // 닉네임떠요
+    // console.log(postings)
+    // postings는 초기 데이터. 그 데이터베이스 배열오브젝트 그거임
+    // bring_post는 그 아이디유저네임타이틀컨텐츠캐그즈 가져오는 함수
+    // console.log(username) // 닉네임떠요
+
+
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
 
     return (
         <>
             <Header></Header>
 
-            <TitleBox>
+            <TitleBox smallerScreen={windowWidth < 950}>
                 <BigTitle>후기 공유</BigTitle>
                 <SmallTitle>Sharing Reviews</SmallTitle>
             </TitleBox>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
@@ -25,6 +25,13 @@ const BodyWrapper = styled.div`
         font-weight: bold;
         margin-bottom: 30px;
         color: #C9C1FF;
+    }
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 100%;
+            align-items: center;
+        `
     }
 `
 
@@ -121,6 +128,21 @@ const ReservationSuccess = (props) => {
     const costParam = Number(searchParams.get("totalCost"));
 
 
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
+
     // console.log(themeParam, dateParam, timeParam, personParam, costParam)
 
 
@@ -136,7 +158,7 @@ const ReservationSuccess = (props) => {
         <div>
 
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}>
 
                 <div className="headTitle">예약이 완료되었습니다.</div>
                 

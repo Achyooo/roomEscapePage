@@ -3,12 +3,11 @@
 import React, { useEffect, memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../datas/themeDatas';
 
 import Write from '../../components/review/write/Write';
-// import Responsive from '../libs/common/Responsive';
 import WriteActionButton from '../../components/review/write/WriteActionButton';
 import Header from '../../libs/common/Header';
 
@@ -28,18 +27,6 @@ import { initialize,
 
 
 
-const updownAni = keyframes`
-    0% {
-        background-position: center;
-    }
-    50% {
-        background-position: center -470px;
-    }
-    100% {
-        background-position: center;
-    }
-`;
-
 const TitleBox = styled.div`
     width: 100%;
     height: 200px;
@@ -51,7 +38,12 @@ const TitleBox = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 50px;
-    /* animation: ${updownAni} 4s ease-in-out infinite; */
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            margin-top: 100px;
+        `
+    }
 `
 
 const BigTitle = styled.div`
@@ -127,6 +119,22 @@ const WritePage = (props) => {
     const page = Number(searchParams.get("page")) || 1;
 
     const [selectedTheme, setSelectedTheme] = useState(theme);
+    
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+    
+
 
     const navi = useNavigate();
 
@@ -175,7 +183,7 @@ const WritePage = (props) => {
         <Header></Header>
 
         
-        <TitleBox>
+        <TitleBox smallerScreen={windowWidth < 950}>
             <BigTitle>후기 공유</BigTitle>
             <SmallTitle>Sharing Reviews</SmallTitle>
         </TitleBox>

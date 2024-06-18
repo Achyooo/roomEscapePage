@@ -6,15 +6,19 @@ import styled from 'styled-components';
 const Span = styled.span`
     position: absolute;
     margin-left: 3px;
+    &.itemStar {
+      position: static !important;
+      margin-left: 0 !important;
+    }
 `
 
-const StarRating = ({ starNum }) => {
+const StarRating = ({ starNum, className }) => {
 
 
   
     return (
 
-      <Span>
+      <Span className={className}>
 
         {[...Array(5)].map((star, index) => {
           const ratingValue = index + 1;

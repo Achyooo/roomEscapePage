@@ -12,6 +12,7 @@ import StarRating from './StarRating';
 
 //
 
+// 렌더링되면 파앗
 const appearAni = keyframes`
     0% {
         opacity: 0;
@@ -27,6 +28,19 @@ const BodyWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     animation: ${appearAni} 0.5s ease-out forwards;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 100%;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            margin: 50px auto;
+        `
+    }
 `
 
 const OneThemePlace = styled.div`
@@ -51,6 +65,12 @@ const ImgStyle = styled.img`
             opacity: 1;
             transform: translateX(0);
         `}
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 250px;
+            height: 353px;
+        `}
 `;
 
 const ReallyOneThemePlace = styled.div`
@@ -66,12 +86,31 @@ const ReallyOneThemePlace = styled.div`
         border-bottom: none;
         padding-bottom: 30px;
     }
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            flex-direction: column;
+            align-items: center;
+        `
+    }
 `
 
 const InfoTextPlace = styled.div`
     width: 650px;
     padding-left: 50px;
     position: relative;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            margin-top: 40px;
+            padding-left: 0;
+        `
+    }
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 350px;
+    `}
 `
 
 const ThemeTitleStyle = styled.div`
@@ -80,20 +119,48 @@ const ThemeTitleStyle = styled.div`
     line-height: 40px;
     color: #A4D9FF;
     margin-bottom: 20px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            text-align: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            font-size: 1.6rem;
+        `
+    }
 `
 
 const SubInfosPlace = styled.div`
     display: flex;
     border-top: 5px double #ddd;
     padding-top: 30px;
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            flex-direction: column;
+            align-items: center;
+    `}
 `
 
 const SmallInfoLeft = styled.div`
     width: 325px;
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 200px;
+        `}
 `
 
 const SmallInfoRight = styled.div`
     width: 325px;
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 200px;
+        `}
 `
 
 const SmallInfoLine = styled.div`
@@ -112,6 +179,12 @@ const SmallTitleSpanStyle = styled.span`
 
 const DescWrapper = styled.div`
     margin-bottom: 100px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            margin-bottom: 40px;
+        `
+    }
 `
 
 
@@ -134,6 +207,13 @@ const ReservationButton = styled.button`
         color: #A4D9FF;
         border: 1px solid #A4D9FF;
     }
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 100%;
+            position: static;
+        `
+    }
 `
 
 
@@ -146,8 +226,20 @@ const Theme = () => {
 
     const navi = useNavigate();
     const [inView, setInView] = useState(new Array(themeDatas.length).fill(false));
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
-    // console.log(new Array(themeDatas.length).fill("엥"))
+    // 반응형
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
 
     const onclickReservation = (e) => {
         const themeIndex = parseInt(e.target.dataset.index);
@@ -195,30 +287,38 @@ const Theme = () => {
     return (
         <div>
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <OneThemePlace>
 
                     
                         {themeDatas.map((obj, idx) => (
-                            <ReallyOneThemePlace key={idx}>
+                            <ReallyOneThemePlace key={idx}
+                                                 smallScreen={windowWidth < 1050}>
 
 
                                     <ImgStyle src={obj.poster}
                                               alt="그림이이왜안보일까"
                                               className="theme-img"
                                               data-index={idx}
-                                              inView={inView[idx]} />
+                                              inView={inView[idx]}
+                                              smallerScreen={windowWidth < 660} />
                                     
-                                    <InfoTextPlace>
-                                        <ThemeTitleStyle>{obj.name}</ThemeTitleStyle>
+                                    <InfoTextPlace smallScreen={windowWidth < 1050}
+                                                   smallerScreen={windowWidth < 660}>
+                                        <ThemeTitleStyle smallScreen={windowWidth < 1050}
+                                                         smallerScreen={windowWidth < 660}>
+                                            {obj.name}
+                                        </ThemeTitleStyle>
 
-                                        <SubInfosPlace>
-                                            <SmallInfoLeft>
+                                        <SubInfosPlace smallScreen={windowWidth < 1050}
+                                                       smallerScreen={windowWidth < 660}>
+                                            <SmallInfoLeft smallerScreen={windowWidth < 660}>
                                                 <SmallInfoLine><SmallTitleSpanStyle>장르</SmallTitleSpanStyle> {obj.genre}</SmallInfoLine>
                                                 <SmallInfoLine><SmallTitleSpanStyle>시간</SmallTitleSpanStyle> {obj.time}</SmallInfoLine>
                                             </SmallInfoLeft>
-                                            <SmallInfoRight>
+                                            <SmallInfoRight smallerScreen={windowWidth < 660}>
                                                 <SmallInfoLine><SmallTitleSpanStyle>인원</SmallTitleSpanStyle> {obj.numOfPeople}명</SmallInfoLine>
                                                 <SmallInfoLine><SmallTitleSpanStyle>난이도</SmallTitleSpanStyle>
                                                     <StarRating starNum={obj.difficulty}></StarRating>
@@ -226,14 +326,15 @@ const Theme = () => {
                                             </SmallInfoRight>
                                         </SubInfosPlace>
 
-                                        <DescWrapper>
+                                        <DescWrapper smallScreen={windowWidth < 1050}>
                                             {obj.desc.map((descItem, i) => (
                                                 <p key={i}>{descItem}</p>
                                             ))}
                                         </DescWrapper>
 
                                         <ReservationButton onClick={onclickReservation}
-                                                           data-index={idx}>
+                                                           data-index={idx}
+                                                           smallScreen={windowWidth < 1050}>
                                                            예약하기
                                         </ReservationButton>
 

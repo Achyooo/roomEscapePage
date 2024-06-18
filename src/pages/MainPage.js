@@ -14,7 +14,7 @@ import Footer from '../libs/common/Footer';
 const MainPage = () => {
     return (
 
-        <div>
+        <>
             <Header></Header>
 
             <Main></Main>
@@ -24,7 +24,7 @@ const MainPage = () => {
             <Caution></Caution>
             
             <Footer></Footer>
-        </div>
+        </>
 
     );
 };

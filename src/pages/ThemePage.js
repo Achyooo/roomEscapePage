@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled, { css, keyframes } from 'styled-components';
 import sky_pastel_a from '../datas/images/sky_pastel_a.jpg'
@@ -7,20 +7,6 @@ import Header from '../libs/common/Header';
 import Theme from '../components/theme/Theme';
 import Footer from '../libs/common/Footer';
 
-
-
-
-const updownAni = keyframes`
-    0% {
-        background-position: center;
-    }
-    50% {
-        background-position: center -470px;
-    }
-    100% {
-        background-position: center;
-    }
-`;
 
 const TitleBox = styled.div`
     width: 100%;
@@ -33,7 +19,12 @@ const TitleBox = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 50px;
-    /* animation: ${updownAni} 4s ease-in-out infinite; */
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            margin-top: 100px;
+        `
+    }
 `
 
 const BigTitle = styled.div`
@@ -48,11 +39,26 @@ const SmallTitle = styled.div`
 
 
 const ThemePage = () => {
+
+    // 950px 미만 넓이제한
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
     return (
-        <div>
+        <>
             <Header></Header>
 
-            <TitleBox>
+            <TitleBox smallerScreen={windowWidth < 950}>
                 <BigTitle>테마 소개</BigTitle>
                 <SmallTitle>Theme Information</SmallTitle>
             </TitleBox>
@@ -60,7 +66,7 @@ const ThemePage = () => {
             <Theme></Theme>
 
             <Footer></Footer>
-        </div>
+        </>
     );
 };
 

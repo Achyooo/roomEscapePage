@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import Calendar from 'react-calendar';
 import moment from "moment";
@@ -38,6 +38,19 @@ const BodyWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     animation: ${appearAni} 0.5s ease-out forwards;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 100%;
+            align-items: center;
+        `
+    }
+        ${(props)=>
+        props.smallerScreen && 
+        css`
+            margin: 50px auto;
+        `
+    }
 `
 
 const OneThemePlace = styled.div`
@@ -59,16 +72,41 @@ const ImgStyle = styled.img`
         transform: translate(-7px, -10px);
         box-shadow: 11px 11px 13px rgba(0, 0, 0, 0.1);
     }
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 250px;
+            height: 353px;
+        `}
 `
 
 const ReallyOneThemePlace = styled.div`
     display: flex;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            flex-direction: column;
+            align-items: center;
+        `
+    }
 `
 
 const InfoWrapper = styled.div`
     width: 650px;
     padding-left: 50px;
     position: relative;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            margin-top: 40px;
+            padding-left: 0;
+        `
+    }
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            width: 350px;
+    `}
 `
 
 const TitleAndDateWrapper = styled.div`
@@ -90,6 +128,12 @@ const ThemeTitleStyle = styled.div`
     font-size: 2rem;
     font-weight: bold;
     color: #C9C1FF;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            font-size: 1.6rem;
+        `
+    }
 `
 
 const Dotdot = styled.div`
@@ -98,10 +142,22 @@ const Dotdot = styled.div`
     font-weight: bold;
     margin: 0px 24px 0px 20px;
     transform: translateY(-5px);
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            font-size: 1.6rem;
+        `
+    }
 `
 
 const InputPlace = styled.div`
     display: flex;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            width: 246px;
+        `
+    }
 `
 
 const SelectBox = styled.select`
@@ -120,6 +176,12 @@ const SelectBox = styled.select`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            font-size: 1.2rem;
+        `
+    }
 `
 
 
@@ -142,6 +204,12 @@ const DropdownButton = styled.button`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            font-size: 1.2rem;
+        `
+    }
 `
 
 const CalendarWrapper = styled.div`
@@ -154,9 +222,15 @@ const CalendarWrapper = styled.div`
 
 const TimeButtonWrapper = styled.div`
     display: flex;
-    align-items: center;
     height: 264px;
-    margin-top: 10px;
+    margin-top: 30px;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            text-align: center;
+            margin-bottom: 150px;
+        `
+        }
 `
 
 
@@ -174,6 +248,21 @@ const Reservation = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
+
+
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
 
@@ -248,7 +337,7 @@ const Reservation = (props) => {
         
         const cost = themeDatas[selectedThemeIndex].cost;
 
-        // 파라미터 갖고 여기로 꺼져
+        // 파라미터 갖고 여기로 가요
         navi(`/reservationMake?themeIndex=${selectedThemeIndex}&theme=${theme}&date=${date}&time=${time}&cost=${cost}`)
         
     }
@@ -263,22 +352,27 @@ const Reservation = (props) => {
     return (
         <div>
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
                 <OneThemePlace>
-                    <ReallyOneThemePlace>
+                    <ReallyOneThemePlace smallScreen={windowWidth < 1050}>
 
-                        <ImgStyle src={themeDatas[selectedThemeIndex].poster} alt="그림이 왜 안 보일까" />
+                        <ImgStyle src={themeDatas[selectedThemeIndex].poster}
+                                  alt="그림이 왜 안 보일까"
+                                  smallerScreen={windowWidth < 660} />
 
-                        <InfoWrapper>
+                        <InfoWrapper smallScreen={windowWidth < 1050}
+                                     smallerScreen={windowWidth < 660}>
 
-                            <TitleAndDateWrapper>
-                                <Bundle>
-                                    <ThemeTitleStyle>테마</ThemeTitleStyle>
-                                    <Dotdot>:</Dotdot>
-                                    <InputPlace>
+                            <TitleAndDateWrapper smallerScreen={windowWidth < 660}>
+                                <Bundle smallerScreen={windowWidth < 660}>
+                                    <ThemeTitleStyle smallerScreen={windowWidth < 660}>테마</ThemeTitleStyle>
+                                    <Dotdot smallerScreen={windowWidth < 660}>:</Dotdot>
+                                    <InputPlace smallerScreen={windowWidth < 660}>
                                         <SelectBox name="name"
                                                    value={themeDatas[selectedThemeIndex].name}
                                                    onChange={handleThemeChange}
+                                                   smallerScreen={windowWidth < 660}
                                         >
                                             {themeDatas.map((theme, index) => (
                                                 <option key={index} value={theme.name}>
@@ -288,11 +382,15 @@ const Reservation = (props) => {
                                         </SelectBox>
                                     </InputPlace>
                                 </Bundle>
-                                <Bundle>
-                                    <ThemeTitleStyle>날짜</ThemeTitleStyle>
-                                    <Dotdot>:</Dotdot>
-                                    <InputPlace style={{ position: "relative" }}>
-                                        <DropdownButton onClick={handleToggleCalendar}>{nowDate}</DropdownButton>
+                                <Bundle smallerScreen={windowWidth < 660}>
+                                    <ThemeTitleStyle smallerScreen={windowWidth < 660}>날짜</ThemeTitleStyle>
+                                    <Dotdot smallerScreen={windowWidth < 660}>:</Dotdot>
+                                    <InputPlace style={{ position: "relative" }}
+                                                smallerScreen={windowWidth < 660}>
+                                        <DropdownButton onClick={handleToggleCalendar}
+                                                        smallerScreen={windowWidth < 660}>
+                                                {nowDate}
+                                        </DropdownButton>
                                         <CalendarWrapper ref={calendarRef} isOpen={isOpen}>
                                             <Calendar
                                                 onChange={handleDateChange}
@@ -307,13 +405,14 @@ const Reservation = (props) => {
 
 
 
-                            <TimeButtonWrapper>
+                            <TimeButtonWrapper smallerScreen={windowWidth < 660}>
 
                                 <TimeButtons availableTimes={themeDatas[selectedThemeIndex].availableTimes}
                                              selectedTheme={themeDatas[selectedThemeIndex].name}
                                              selectedDate={moment(value).format("YYYY-MM-DD")}
                                              onReserve={handleReserve} 
-                                             list={list} />
+                                             list={list}
+                                             smallerScreen={windowWidth < 660} />
 
                             </TimeButtonWrapper>
 

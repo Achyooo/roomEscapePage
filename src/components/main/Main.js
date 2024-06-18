@@ -1,7 +1,9 @@
-import React from 'react';
+// Main.js
+
+import React, { useState, useEffect } from 'react';
 
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import night_pastel_a from "../../datas/images/night_pastel_a.jpg";
 import { themeDatas } from '../../datas/themeDatas';
 
@@ -25,6 +27,18 @@ const MainFontWrapper = styled.div`
     text-align: center;
     position: relative;
     z-index: 10;
+    ${({ smallerScreen }) =>
+        smallerScreen &&
+        css`
+            margin-top: 200px;
+            .headFont{
+                font-size: 1.8rem;
+            }
+            .subFont{
+                font-size: 1.2rem;
+            }
+        `
+    }
 `;
 
 //////
@@ -82,13 +96,13 @@ const imgAni = keyframes`
 
 const updownAni = keyframes`
     0% {
-        background-position: center 30px;
+        background-position: center 0px;
     }
     50% {
-        background-position: center 10px;
+        background-position: center -20px;
     }
     100% {
-        background-position: center 30px;
+        background-position: center 0px;
     }
 `;
 
@@ -98,10 +112,16 @@ const MainImgAni = styled.div`
     width: 100%;
     height: 750px;
     background-image: url(${night_pastel_a});
-    background-size: cover;
-    background-position: center 30px; /* 시작 위치를 중앙에서 20px 위로 */
-    transform: scale(1.1); /* 이미지 크기 확대 */
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center 0px;
     animation: ${imgAni} 2s ease-out forwards;
+    ${({ smallerScreen }) =>
+        smallerScreen &&
+        css`
+            margin-top: 200px;
+        `
+    }
 `;
 
 const MainImgInfiniteAni = styled.div`
@@ -110,12 +130,18 @@ const MainImgInfiniteAni = styled.div`
     width: 100%;
     height: 750px;
     background-image: url(${night_pastel_a});
-    background-size: cover;
-    background-position: center 30px; /* 시작 위치를 중앙에서 30px 아래로 */
-    transform: scale(1.1); /* 이미지 크기 확대 */
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center 0px;
     opacity: 0;
     animation: ${updownAni} 4s ease-in-out infinite;
     animation-delay: 2s;
+    ${({ smallerScreen }) =>
+        smallerScreen &&
+        css`
+            margin-top: 200px;
+        `
+    }
 `;
 
 //////
@@ -126,6 +152,19 @@ const MainImgInfiniteAni = styled.div`
 
 const Main = () => {
 
+    // 그냥 간단하게 반응형이라고 주석을 달기로 한다
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
     const onAnimationEnd = () => {
@@ -137,14 +176,16 @@ const Main = () => {
         <div>
             <FontContainer>
 
-                <MainFontWrapper>
-                    <HeadFont>메인 멘트 자리입니다</HeadFont>
-                    <SubFont>캐치프레이즈 자리입니다</SubFont>
+                <MainFontWrapper smallerScreen={windowWidth < 950}>
+                    <HeadFont className='headFont'>메인 멘트 들어가는 자리입니다</HeadFont>
+                    <SubFont className='subFont'>캐치프레이즈 들어가는 자리입니다</SubFont>
                 </MainFontWrapper>
 
                 <MainImgAni className="mainImgAni"
-                            onAnimationEnd={onAnimationEnd} />
-                <MainImgInfiniteAni className="mainImgInfiniteAni" />
+                            onAnimationEnd={onAnimationEnd}
+                            smallerScreen={windowWidth < 950} />
+                <MainImgInfiniteAni className="mainImgInfiniteAni"
+                                    smallerScreen={windowWidth < 950} />
                 
             </FontContainer>
         </div>

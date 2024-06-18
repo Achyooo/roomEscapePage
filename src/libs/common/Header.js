@@ -1,10 +1,8 @@
 // Header.js
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-
-import Responsive from './Responsive';
 
 
 import { connect } from 'react-redux';
@@ -12,9 +10,9 @@ import { change_mode, submit_register, submit_login, logout_id } from '../../mod
 
 import Button from './Button';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const HeaderDiv = styled(Responsive)`
+const HeaderDiv = styled.div`
     position: fixed;
     width: 100%;
     background: white;
@@ -41,6 +39,16 @@ const WrapperDiv = styled.div`
         display: flex;
         align-items: center;
     }
+    /* 950px 이하 */
+    ${(props) => 
+        props.smallerScreen &&
+        css`
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            height: 150px;
+        `
+    }
 `
 
 
@@ -52,6 +60,14 @@ const MenuUl = styled.div`
     align-items: center;
     list-style: none;
     width: 560px;
+    ${(props)=>
+        props.smallScreen &&
+        css`
+            width: 400px;
+            word-break: keep-all;
+            text-align: center;
+        `
+    }
 `
 
 const MenuLi = styled.li`
@@ -99,15 +115,24 @@ const SpanStyle = styled.span`
 
 const Header = (props) => {
 
-    const {mode,
-           form,
-           username,
-           loginUsername,
+    const {loginUsername,
            loginNickname,
            change_mode,
-           submit_register,
-           submit_login,
            logout_id} = props
+
+    // 넓이 제한 주기.
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
     const navi = useNavigate();
@@ -117,7 +142,7 @@ const Header = (props) => {
     const onClickLogout = () => {
         logout_id();
         alert("로그아웃 되었습니다.");
-        // 글쓰기페이지에서 로그아웃할경우 이전으로 돌아가게 해야함
+        // 글쓰기페이지에서 로그아웃할 경우 이전으로 돌아가게 해야함
         if(loca.pathname === '/write'){
             navi(-1)
         }
@@ -140,13 +165,13 @@ const Header = (props) => {
         <>
         <HeaderDiv>
 
-            <WrapperDiv>
+            <WrapperDiv smallerScreen={windowWidth < 950}>
 
                 <Link to="/" className="logo">DreamRoom</Link>
 
 
                 <div>
-                    <MenuUl>
+                    <MenuUl smallScreen={windowWidth < 1200}>
                         <MenuLink to="/theme"><MenuLi>테마</MenuLi></MenuLink>
                         <MenuLink to="/reservation"><MenuLi>예약</MenuLi></MenuLink>
                         <MenuLink to="/reservationLook"><MenuLi>예약조회/취소</MenuLi></MenuLink>
