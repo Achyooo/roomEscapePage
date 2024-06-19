@@ -25,12 +25,28 @@ const BodyWrapper = styled.div`
         font-weight: bold;
         margin-bottom: 30px;
         color: #C9C1FF;
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.9rem;
+                margin-bottom: 36px;
+                text-align: center;
+                word-break: keep-all;
+            `
+        }
     }
     ${(props)=>
         props.smallScreen && 
         css`
-            width: 100%;
+            width: 660px;
             align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
         `
     }
 `
@@ -44,6 +60,14 @@ const CheckCircle = styled.div`
     text-align: center;
     border-radius: 50%;
     background-color: #C9C1FF;
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 44px;
+            height: 44px;
+            font-size: 32px;
+        `
+    }
 `
 
 
@@ -56,15 +80,47 @@ const InfoWrapper = styled.div`
     align-items: center;
     margin-top: 100px;
     font-size: 18px;
+    /* 610px 이하에서 */
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 300px;
+            margin-top: 74px;
+            margin-left: 10px;
+        `
+    }
     .bundle-oneLine{
         display: flex;
         margin-bottom: 40px;
+        /* 610px 이하에서 라인 하나 */
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1rem;
+            `
+        }
         .oneLine-title{
             width: 200px;
             color: #afafaf;
+            /* 610px 이하에서 세부 제목 */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    width: 110px;
+                    /* padding-right: 10px; */
+                `
+            }
         }
         .oneLine-content{
             width: 150px;
+            /* 610px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    margin-left: 30px;
+                    width: 100px;
+                `
+            }
         }
     }
 `
@@ -90,6 +146,19 @@ const ButtonWrapper = styled.div`
             background-color: #fff;
             border: 1px solid #C9C1FF;
             color: #C9C1FF;
+        }
+        ${(props)=>
+            props.smallScreen && 
+            css`
+                width: 450px;
+            `
+        }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.2rem;
+                width: 280px;
+            `
         }
     }
 `
@@ -158,13 +227,18 @@ const ReservationSuccess = (props) => {
         <div>
 
 
-            <BodyWrapper smallScreen={windowWidth < 1050}>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <div className="headTitle">예약이 완료되었습니다.</div>
                 
-                <CheckCircle>✔</CheckCircle>
+                <CheckCircle smallScreen={windowWidth < 1050}
+                             smallerScreen={windowWidth < 660}>
+                        ✔
+                </CheckCircle>
 
-                <InfoWrapper>
+                <InfoWrapper smallScreen={windowWidth < 1050}
+                             smallerScreen={windowWidth < 610}>
                     <div className='bundle-oneLine'>
                         <div className='oneLine-title'>테마명</div>
                         <div className='oneLine-content'>{themeParam}</div>
@@ -193,7 +267,10 @@ const ReservationSuccess = (props) => {
 
 
                 {/* 빾 투더 예약. 근데 파라미터 받아서 해당 테마로. */}
-                <ButtonWrapper><button onClick={onClick}>목록으로</button></ButtonWrapper>
+                <ButtonWrapper smallScreen={windowWidth < 1050}
+                               smallerScreen={windowWidth < 660}>
+                    <button onClick={onClick}>목록으로</button>
+                </ButtonWrapper>
 
 
             </BodyWrapper>

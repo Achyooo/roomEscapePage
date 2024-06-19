@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
@@ -19,11 +19,33 @@ const BodyWrapper = styled.div`
     border: 1px solid #c0c0c0;
     display: flex;
     flex-direction: column;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
+            padding: 60px 40px;
+        `
+    }
     .headTitle{
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 100px;
         color: #C9C1FF;
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.6rem;
+                margin-bottom: 60px;
+            `
+        }
     }
 `
 
@@ -31,64 +53,235 @@ const InfoTopWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 0px 5px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            flex-direction: column;
+            /* margin-left: 50px; */
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 100%;
+        `
+    }
     .bundle-left{
         .bundle-oneLine{
             display: flex;
             padding-bottom: 55px;
+            /* 610px 이하에서 라인 하나 밑 패딩 (1,2,3번째) */
+            ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        padding-bottom: 30px;
+                    `
+            }
             .oneLine-title{
                 width: 130px;
                 color: #afafaf;
+                /* 1050px 이하에서 세부 제목 (테마명, 예약일, 예약시간) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        width: 150px;
+                    `
+                }
+                /* 610px 이하에서 세부 제목 (테마명, 예약일, 예약시간) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 120px;
+                        font-size: 1rem;
+                    `
+                }
             }
             .oneLine-content{
                 width: 200px;
+                /* 1050px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        width: 200px;
+                    `
+                }
+                /* 610px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 140px;
+                        font-size: 1rem;
+                    `
+                }
             }
         }
     }
     .bundle-right{
         .bundle-oneLine{
             display: flex;
-            padding-bottom: 40px;
+            padding-bottom: 55px;
+            /* 1050px 이하에서 센터배치 (4,5,6번째) */
+            ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        align-items: center;
+                    `
+            }
+            /* 610px 이하에서 라인 하나 밑 패딩 (4,5,6번째) */
+            ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        padding-bottom: 30px;
+                    `
+            }
             .oneLine-title{
                 width: 150px;
                 color: #afafaf;
+                /* 1050px 이하에서 세부 제목 (예약자본명, 연락처, 예약확인번호) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        width: 150px;
+                    `
+                }
+                /* 610px 이하에서 세부 제목 (예약자본명, 연락처, 예약확인번호) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 120px;
+                        font-size: 1rem;
+                    `
+                }
             }
             .oneLine-input{
                 width: 230px;
                 font-size: 17px;
                 padding: 3px 6px;
                 height: 30px;
+                /* 1050px 이하에서 세부 내용 (input) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        width: 260px;
+                        height: 25px;
+                    `
+                }
+                /* 610px 이하에서 세부 내용 (input) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        font-size: 0.9rem;
+                        width: 140px;
+                        height: 20px;
+                    `
+                }
             }
         }
     }
 `
 
+
 const InfoBottomWrapper = styled.div`
     display: flex;
-    /* justify-content: space-between; */
     margin-top: 70px;
     margin-bottom: 80px;
     padding: 0px 5px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            flex-direction: column;
+            /* margin-left: 80px; */
+            margin-top: 40px;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 100%;
+        `
+    }
     .bundle-left{
         .bundle-oneLine{
             display: flex;
             padding-bottom: 55px;
+            /* 610px 이하에서 라인 하나 밑 패딩 (7번째) */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    padding-bottom: 30px;
+                `
+            }
             .oneLine-title{
                 width: 130px;
                 color: #afafaf;
+                /* 1050px 이하에서 세부 제목 (인당가격) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        width: 150px;
+                    `
+                }
+                /* 610px 이하에서 세부 제목 (인당가격) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 120px;
+                        font-size: 1rem;
+                    `
+                }
             }
             .oneLine-content{
                 width: 200px;
+                /* 610px 이하에서 세부 내용 (20000원) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 140px;
+                        font-size: 1rem;
+                    `
+                }
             }
         }
     }
     .bundle-right{
         margin-left: 81px;
+        /* 1050px 이하에서 마진삭제 (8,9번째) */
+        ${(props)=>
+            props.smallScreen && 
+            css`
+                margin-left: 0px;
+            `
+        }
         .bundle-oneLine{
             display: flex;
-            padding-bottom: 40px;
+            padding-bottom: 55px;
+            /* 1050px 이하에서 센터배치 (8,9번째) */
+            ${(props)=>
+                props.smallScreen && 
+                css`
+                    margin-left: 0px;
+                    align-items: center;
+                `
+            }
+            /* 610px 이하에서 라인 하나 밑 패딩 (8,9번째) */
+            ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        padding-bottom: 30px;
+                        font-size: 1rem;
+                    `
+            }
             .oneLine-title{
                 width: 150px;
                 color: #afafaf;
+                /* 610px 이하에서 세부 제목 (인원, 현장결제금액) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 120px;
+                        font-size: 1rem;
+                    `
+                }
             }
             .oneLine-select{
                 width: 160px;
@@ -96,6 +289,22 @@ const InfoBottomWrapper = styled.div`
                 font-size: 17px;
                 padding: 3px 6px;
                 display: flex;
+                /* 1050px 이하에서 세부 내용 (select) */
+                ${(props)=>
+                    props.smallScreen && 
+                    css`
+                        height: 35px;
+                    `
+                }
+                /* 610px 이하에서 세부 내용 (select) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        font-size: 0.9rem;
+                        width: 120px;
+                        height: 30px;
+                    `
+                }
             }
         }
     }
@@ -121,6 +330,19 @@ const ButtonWrapper = styled.div`
             background-color: #fff;
             border: 1px solid #C9C1FF;
             color: #C9C1FF;
+        }
+        ${(props)=>
+            props.smallScreen && 
+            css`
+                width: 450px;
+            `
+        }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.2rem;
+                width: 280px;
+            `
         }
     }
 `
@@ -157,6 +379,20 @@ const ReservationMake = (props) => {
 
     const [totalPayment, setTotalPayment] = useState("--");
     const [error, setError] = useState();
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
 
     const navi = useNavigate();
 
@@ -228,7 +464,8 @@ const ReservationMake = (props) => {
         <div>
 
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <div className="headTitle">예약 진행</div>
 
@@ -241,7 +478,8 @@ const ReservationMake = (props) => {
                 <div style={{fontSize:"18px"}}>
 
                     {/* 위쪽 6개 */}
-                    <InfoTopWrapper>
+                    <InfoTopWrapper smallScreen={windowWidth < 1050}
+                                    smallerScreen={windowWidth < 660}>
                         {/* 좌3 */}
                         <div className='bundle-left'>
                             <div className='bundle-oneLine'>
@@ -286,7 +524,8 @@ const ReservationMake = (props) => {
 
 
                     {/* 아래쪽 3개 */}
-                    <InfoBottomWrapper>
+                    <InfoBottomWrapper smallScreen={windowWidth < 1050}
+                                       smallerScreen={windowWidth < 660}>
                         {/* 좌1 */}
                         <div className='bundle-left'>
                             <div className='bundle-oneLine'>
@@ -322,8 +561,16 @@ const ReservationMake = (props) => {
 
 
                 {/* 예약버튼 */}
-                <ButtonWrapper><button type="submit">예약하기</button></ButtonWrapper>
-                <ErrorWrapper><span>{error}</span></ErrorWrapper>
+                <ButtonWrapper smallScreen={windowWidth < 1050}
+                               smallerScreen={windowWidth < 660}>
+                    <button type="submit">예약하기</button>
+                </ButtonWrapper>
+
+                {/* 에러메시지 */}
+                <ErrorWrapper smallScreen={windowWidth < 1050}
+                              smallerScreen={windowWidth < 660}>
+                    <span>{error}</span>
+                </ErrorWrapper>
 
                 </form>
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
@@ -21,18 +21,57 @@ const BodyWrapper = styled.div`
     border: 1px solid #c0c0c0;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     .headTitle{
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 70px;
         color: #C9C1FF;
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.6em;
+                margin-bottom: 60px;
+                text-align: center;
+                word-break: keep-all;
+            `
+        }
     }
     .infoMsg{
         display: flex;
         justify-content: center;
         border: 1px solid #ccc;
         padding: 30px;
+        ${(props)=>
+            props.smallScreen && 
+            css`
+                width: 450px;
+            `
+        }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                width: 200px;
+                word-break: keep-all;
+                flex-direction: column;
+                align-items: center;
+                line-height: 30px;
+            `
+        }
+    }
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
+            align-items: center;
+        `
     }
 `
 
@@ -43,15 +82,46 @@ const InfoWrapper = styled.div`
     margin: 0px auto;
     margin-top: 70px;
     font-size: 18px;
+    /* 610px 이하에서 */
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            align-items: center;
+            width: 100%;
+        `
+    }
     .bundle-oneLine{
         display: flex;
         margin-bottom: 40px;
+        /* 610px 이하에서 라인 하나 */
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1rem;
+            `
+        }
         .oneLine-title{
             width: 200px;
             color: #afafaf;
+            /* 610px 이하에서 세부 제목 */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    width: 110px;
+                    /* padding-right: 10px; */
+                `
+            }
         }
         .oneLine-content{
             width: 150px;
+            /* 610px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    margin-left: 30px;
+                    width: 100px;
+                `
+            }
         }
     }
 `
@@ -62,6 +132,12 @@ const ButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 80px;
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            margin-top: 40px;
+        `
+    }
     button{
         width: 250px;
         height: 54px;
@@ -80,6 +156,14 @@ const ButtonWrapper = styled.div`
             border: 1px solid #D9D1FF;
             background-color: #D9D1FF;
         }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.2rem;
+                width: 120px;
+                margin-right: 12px;
+            `
+        }
     }
     .cancelBtn{
         background-color: #fff;
@@ -87,6 +171,14 @@ const ButtonWrapper = styled.div`
         color: #C9C1FF;
         &:hover{
             background-color: #F9F8FF;
+        }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.2rem;
+                width: 120px;
+                margin-left: 12px;
+            `
         }
     }
 `
@@ -99,22 +191,27 @@ const ButtonWrapper = styled.div`
 
 const ReservationLookSuccess = (props) => {
 
-    const { clientName,
-            clientPhone,
-            clientPw,
-            numOfPeople,
-            theme,
-            date,
-            time,
-            perCost,
-            totalCost,
-            list,
-            modal } = props;
+    const { modal } = props;
 
-    const { submit_reservation_login,
-            modal_mode,
+    const { modal_mode,
             remove_reservation } = props;
 
+
+
+    
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
 
@@ -163,7 +260,8 @@ const ReservationLookSuccess = (props) => {
 
         <div>
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <div className="headTitle">예약 조회하기</div>
 
@@ -179,7 +277,8 @@ const ReservationLookSuccess = (props) => {
                 </div>
 
 
-                <InfoWrapper>
+                <InfoWrapper smallScreen={windowWidth < 1050}
+                             smallerScreen={windowWidth < 660}>
 
                     <div className='bundle-oneLine'>
                         <div className='oneLine-title'>테마명</div>
@@ -209,7 +308,8 @@ const ReservationLookSuccess = (props) => {
 
 
                 {/* 목록버튼과 삭제버튼 만들 예정 */}
-                <ButtonWrapper>
+                <ButtonWrapper smallScreen={windowWidth < 1050}
+                               smallerScreen={windowWidth < 660}>
                     <button className="backBtn" onClick={onClickBack}>목록으로</button>
                     <button className="cancelBtn" onClick={onClickCancel}>예약 취소</button>    
                 </ButtonWrapper>
@@ -219,7 +319,9 @@ const ReservationLookSuccess = (props) => {
                              remove_reservation={remove_reservation}
                              themeParam={themeParam}
                              dateParam={dateParam}
-                             timeParam={timeParam}>
+                             timeParam={timeParam}
+                             smallScreen={windowWidth < 1050}
+                             smallerScreen={windowWidth < 660}>
                 </CancelModal>
 
 

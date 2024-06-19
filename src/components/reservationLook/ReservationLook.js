@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../datas/themeDatas'
@@ -27,31 +27,91 @@ const BodyWrapper = styled.div`
     padding: 70px 90px;
     border: 1px solid #c0c0c0;
     animation: ${appearAni} 0.5s ease-out forwards;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
+            padding: 60px 40px;
+        `
+    }
     .headTitle{
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 100px;
         color: #C9C1FF;
+        ${(props)=>
+            props.smallScreen && 
+            css`
+                text-align: center;
+            `
+        }
+        ${(props)=>
+            props.smallerScreen && 
+            css`
+                font-size: 1.6rem;
+                margin-bottom: 60px;
+            `
+        }
     }
 `
 
 const InfoWrapper = styled.div`
     display: flex;
     justify-content: center;
+    /* 610px 이하에서 */
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            margin-top: 74px;
+            margin-left: 10px;
+        `
+    }
     .bundle{
         margin-bottom: 80px;
         .bundle-oneLine{
             display: flex;
             padding-bottom: 40px;
+            /* 610px 이하에서 라인 하나 밑 패딩 */
+            ${(props)=>
+                props.smallerScreen && 
+                css`
+                    font-size: 1rem;
+            `
+        }
             .oneLine-title{
                 width: 150px;
                 color: #afafaf;
+                /* 610px 이하에서 세부 제목 */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        width: 120px;
+                        font-size: 1rem;
+                    `
+                }
             }
             .oneLine-input{
                 width: 250px;
                 font-size: 17px;
                 padding: 3px 6px;
                 height: 30px;
+                /* 610px 이하에서 세부 내용 (input) */
+                ${(props)=>
+                    props.smallerScreen && 
+                    css`
+                        font-size: 0.9rem;
+                        width: 140px;
+                        height: 20px;
+                    `
+                }
             }
         }
     }
@@ -110,6 +170,21 @@ const ReservationLook = (props) => {
 
 
     const [error, setError] = useState();
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+    
+
     const navi = useNavigate();
 
     console.log(list)
@@ -152,7 +227,8 @@ const ReservationLook = (props) => {
     return (
         <div>
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <div className="headTitle">예약 조회하기</div>
 
@@ -163,7 +239,8 @@ const ReservationLook = (props) => {
                 {/* 정보들 */}
                 <div style={{fontSize:"18px"}}>
 
-                    <InfoWrapper>
+                    <InfoWrapper smallScreen={windowWidth < 1050}
+                                 smallerScreen={windowWidth < 660}>
 
                         <div className='bundle'>
                             <div className='bundle-oneLine'>
@@ -194,8 +271,14 @@ const ReservationLook = (props) => {
 
 
                 {/* 조회버튼 */}
-                <ButtonWrapper><button type="submit">조회하기</button></ButtonWrapper>
-                <ErrorWrapper><span>{error}</span></ErrorWrapper>
+                <ButtonWrapper smallScreen={windowWidth < 1050}
+                               smallerScreen={windowWidth < 660}>
+                    <button type="submit">조회하기</button>
+                </ButtonWrapper>
+
+                <ErrorWrapper>
+                    <span>{error}</span>
+                </ErrorWrapper>
 
 
                 </form>
