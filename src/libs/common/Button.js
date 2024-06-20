@@ -17,6 +17,8 @@ const SButton = css`
     border: 1px solid #FFA8B2;
     outline: none;
     text-decoration: none;
+    text-align: center;
+    word-break: keep-all;
     cursor: pointer;
     &:hover{
         color: #FFA8B2;

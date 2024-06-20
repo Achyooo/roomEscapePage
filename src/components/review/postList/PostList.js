@@ -1,9 +1,9 @@
 // PostList.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import sky_pastel_a from '../../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../../datas/themeDatas'
@@ -32,6 +32,20 @@ const BodyWrapper = styled.div`
     margin-bottom: 40px;
     border-bottom: 1px solid #c0c0c0;
     animation: ${appearAni} 0.5s ease-out forwards;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
+        `
+    }
 `
 
 const TopOfListWrapper = styled.div`
@@ -40,9 +54,22 @@ const TopOfListWrapper = styled.div`
     align-items: center;
     border-bottom: 5px double #ddd;
     padding-bottom: 30px;
+    ${(props)=>
+        props.smallerScreen &&
+        css`
+            flex-direction: column;
+            height: 90px;
+        `
+    }
 `
 
 const ThemeSelectPlace = styled.div`
+    ${(props) =>
+        props.smallerScreen &&
+        css`
+            order: 2;
+        `
+    }
     span{
         font-weight: bold;
         padding-right: 9px;
@@ -63,7 +90,22 @@ const ThemeSelectPlace = styled.div`
 const PostingsPlace = styled.div`
     width: 960px;
     margin: 0px auto;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            font-size: 1rem;
+        `
+    }
 `
+
+
 
 
 /////
@@ -93,6 +135,19 @@ const PostList = (props) => {
 
     const [selectedTheme, setSelectedTheme] = useState("All");
 
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
     
@@ -126,11 +181,14 @@ const PostList = (props) => {
         <div>
 
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
-                <TopOfListWrapper>
+                <TopOfListWrapper smallScreen={windowWidth < 1050}
+                                  smallerScreen={windowWidth < 660}>
 
-                        <ThemeSelectPlace>
+                        <ThemeSelectPlace smallScreen={windowWidth < 1050}
+                                          smallerScreen={windowWidth < 660}>
                             <span>【 테마 】 :</span>
 
                             <select onChange={handleThemeChange}>
@@ -154,29 +212,16 @@ const PostList = (props) => {
 
                 </TopOfListWrapper>
 
-                {/* {postings && postings.map((item)=>(<PostItem item={item} onClick={onClick}/>))} */}
-                {/* 그 데이터가져올수있는 클릭이벤을 포스팅글하나하나에 뿌려줌 */}
-            
-                {/* {postings && postings.map((item, idx)=>(<PostItem item={item} key={idx} onClick={onClick}/>))} */}
-
-                <PostingsPlace>
-                    {/* {postings && postings.map((item, idx)=>{
-                        if(
-                            itemsPerPage * (page-1) <= idx &&
-                            idx <= itemsPerPage * (page-1) + (itemsPerPage-1)
-                        ){
-                            return <PostItem item={item} bring_post={bring_post}/>
-                                
-                        }}
-                        )
-                    } */}
+                <PostingsPlace smallScreen={windowWidth < 1050}
+                               smallerScreen={windowWidth < 660}>
 
                     {filteredPostings && filteredPostings.slice((page-1) * itemsPerPage, page * itemsPerPage).map((item, idx) => (
                         <PostItem key={idx}
                                   item={item}
                                   bring_post={bring_post}
                                   loginUsername={loginUsername}
-                                  loginNickname={loginNickname} />
+                                  loginNickname={loginNickname}
+                        />
                     ))}
                 </PostingsPlace>
 

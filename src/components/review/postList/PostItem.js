@@ -46,7 +46,7 @@ const SubInfoDiv = styled.div`
 // 이게 리스트 하나.
 const PostItem = (props) => {
 
-    const {item, bring_post, loginUsername, loginNickname} = props;
+    const {item, bring_post} = props;
 
     // console.log(item)
 
