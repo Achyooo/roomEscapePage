@@ -12,13 +12,14 @@
     padding: 20px 20px;
 }
 
+
 .react-calendar__navigation__label > span {
     color: #666;
 }
 
 .react-calendar__month-view__days__day {
     background-color: white;
-    height: 48.5px;
+    height: 49px;
     border: none;
     border-radius: 50%;
 }
@@ -91,4 +92,18 @@
 .react-calendar__navigation__prev2-button,
 .react-calendar__navigation__next2-button {
   display: none;
+}
+
+
+
+
+/* 660 미만 환경 */
+@media (max-width: 660px) {
+    .react-calendar{
+        width: 190px;
+    }
+    
+    .react-calendar__month-view__days__day {
+        height: 28px;
+    }
 }

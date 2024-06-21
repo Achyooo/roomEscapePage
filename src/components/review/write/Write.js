@@ -11,7 +11,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 import { initialize } from '../../../modules/write';
@@ -28,6 +28,19 @@ const TitleInput = styled.input`
     border: none;
     border-bottom: 5px double #ddd;
     width: 996px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            font-size: 1.7rem;
+        `
+    }
 `
 
 const QuillDiv = styled.div`
@@ -38,11 +51,32 @@ const QuillDiv = styled.div`
     .ql-editor{
         padding: 20px;
         min-height: 320px;
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         line-height: 1.5;
     }
     .ql-editor.ql-blank::before{
         left: 20px;
+    }
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            .ql-editor{
+                width: 660px;
+            }
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 30px auto;
+            margin-bottom: 80px;
+            .ql-editor{
+                width: 350px;
+                font-size: 1rem;
+            }
+        `
     }
 `
 
@@ -50,7 +84,7 @@ const QuillDiv = styled.div`
 
 const Write = (props) => {
 
-    const {postings, title, change_content, onChange} = props;
+    const {postings, title, change_content, onChange, smallScreen, smallerScreen} = props;
 
 
     const {update_content} = useSelector((state)=>({
@@ -109,10 +143,13 @@ const Write = (props) => {
 
             <TitleInput value={title}
                         onChange={onChange}
-                        placeholder='제목을 입력하세요'/>
+                        placeholder='제목을 입력하세요'
+                        smallScreen={smallScreen}
+                        smallerScreen={smallerScreen}/>
 
 
-            <QuillDiv>
+            <QuillDiv smallScreen={smallScreen}
+                      smallerScreen={smallerScreen}>
                 <div ref={quillElement}/>
             </QuillDiv>
 

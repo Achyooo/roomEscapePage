@@ -65,6 +65,22 @@ const BodyWrapper = styled.div`
     margin: 120px auto;
     margin-bottom: 0px;
     border-bottom: 1px solid #c0c0c0;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin-top: 80px !important;
+            margin: 0px auto;
+            padding-bottom: 20px;
+        `
+    }
 `
 
 
@@ -188,7 +204,8 @@ const WritePage = (props) => {
             <SmallTitle>Sharing Reviews</SmallTitle>
         </TitleBox>
 
-        <BodyWrapper>
+        <BodyWrapper smallScreen={windowWidth < 1050}
+                     smallerScreen={windowWidth < 660}>
 
             <ThemeSelectPlace>
                         <span>【 테마 】 :</span>
@@ -204,7 +221,9 @@ const WritePage = (props) => {
             <Write postings={postings}
                    title={title}
                    change_content={change_content}
-                   onChange={onChange}>
+                   onChange={onChange}                   
+                   smallScreen={windowWidth < 1050}
+                   smallerScreen={windowWidth < 660}>
             </Write>
 
         </BodyWrapper>

@@ -25,6 +25,13 @@ const PostItemDiv = styled.div`
             color: #888;
         }
     }
+    /* 660px 미만 환경, 게시글 한줄 column 배치 */
+    ${props=>
+        props.smallerScreen &&
+        css`
+            flex-direction: column;
+            height: 56px;
+        `}
 `
 
 const SubInfoDiv = styled.div`
@@ -46,7 +53,7 @@ const SubInfoDiv = styled.div`
 // 이게 리스트 하나.
 const PostItem = (props) => {
 
-    const {item, bring_post} = props;
+    const {item, bring_post, smallerScreen} = props;
 
     // console.log(item)
 
@@ -78,7 +85,7 @@ const PostItem = (props) => {
 
     
     return (
-        <PostItemDiv>
+        <PostItemDiv smallerScreen={smallerScreen}>
             
             <span>
                 <span style={{fontSize:"14px",

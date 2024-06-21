@@ -221,6 +221,7 @@ const PostList = (props) => {
                                   bring_post={bring_post}
                                   loginUsername={loginUsername}
                                   loginNickname={loginNickname}
+                                  smallerScreen={windowWidth < 660}
                         />
                     ))}
                 </PostingsPlace>

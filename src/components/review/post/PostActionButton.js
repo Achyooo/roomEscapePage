@@ -2,12 +2,19 @@ import React from 'react';
 
 import palette from '../../../libs/styles/palette';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import DeleteModal from '../../../libs/modals/DeleteModal'
 
 
 
 const PostActionDiv = styled.div`
+    ${props=>
+        props.smallerScreen &&
+        css`
+            align-self: end;
+            margin-top: 20px;
+        `
+    }
 `
 
 const ActionButton = styled.button`
@@ -33,7 +40,7 @@ const ActionButton = styled.button`
 
 const PostActionButton = (props) => {
 
-    const {onClick, modal_mode, modal, remove_post, id} = props;
+    const {onClick, modal_mode, modal, remove_post, id, smallerScreen} = props;
 
     const onClickRemove = () => {
         modal_mode(true)
@@ -41,7 +48,7 @@ const PostActionButton = (props) => {
 
 
     return (
-        <PostActionDiv>
+        <PostActionDiv smallerScreen={smallerScreen}>
 
             <ActionButton onClick={onClick}>수정</ActionButton>
             <ActionButton onClick={onClickRemove}>삭제</ActionButton>

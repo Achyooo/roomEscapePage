@@ -1,6 +1,6 @@
 // Post.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,6 +19,20 @@ import PostActionButton from './PostActionButton';
 const BodyWrapper = styled.div`
     width: 1000px;
     margin: 120px auto;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            align-items: center;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            margin: 50px auto;
+        `
+    }
 `
 
 const BackButtonPlace = styled.div`
@@ -48,6 +62,21 @@ const TitleBundle = styled.div`
         font-size: 1.6rem;
         padding-right: 15px;
     }
+    /* 660 미만 환경, 제목 번들 스타일 변경 */
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            span{
+                font-size: 1.7rem;
+            }
+            .theme{
+                font-size: 1.3rem;
+            }
+        `
+    }
 `
 
 /////
@@ -72,6 +101,22 @@ const SubTitleBundle = styled.div`
             color: #FFA8B2;
         }
     }
+    /* 660 미만 환경, 작성자 작성일자 번들 스타일 변경 */
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 660px;
+            padding: 20px 0px;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 350px;
+            flex-direction: column;
+            align-items: start;
+        `
+    }
 `
 
 const PostContentDiv = styled.div`
@@ -80,6 +125,20 @@ const PostContentDiv = styled.div`
     margin: 20px auto;
     line-height: 28px;
     padding: 4px 15px;
+    ${(props)=>
+        props.smallScreen && 
+        css`
+            width: 630px;
+            margin: 20px 0px;
+        `
+    }
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 330px;
+            
+        `
+    }
 `
 
 
@@ -100,6 +159,21 @@ const Post = (props) => {
            modal,
            modal_mode,
            id, remove_post} = props;
+
+
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
 
 
     const navi = useNavigate();
@@ -131,13 +205,15 @@ const Post = (props) => {
     
 
     return (
-        <div>
+        <>
 
 
-            <BodyWrapper>
+            <BodyWrapper smallScreen={windowWidth < 1050}
+                         smallerScreen={windowWidth < 660}>
 
                 <PostTitleWrapper>
-                    <TitleBundle>
+                    <TitleBundle smallScreen={windowWidth < 1050}
+                                 smallerScreen={windowWidth < 660}>
                         <span className='theme'>[{theme}]</span><span>{title}</span>
                     </TitleBundle>
                 </PostTitleWrapper>
@@ -145,7 +221,8 @@ const Post = (props) => {
 
                 <PostWrapper>
                     
-                    <SubTitleBundle>
+                    <SubTitleBundle smallScreen={windowWidth < 1050}
+                                    smallerScreen={windowWidth < 660}>
 
                         <div className='nameAndDate'>
                             <b className='lineTitle'>작성자 : </b> <b>{nickname} </b>({maskedUsername}) <br/>
@@ -158,14 +235,18 @@ const Post = (props) => {
                                                   modal={modal}
                                                   modal_mode={modal_mode}
                                                   id={id}
-                                                  remove_post={remove_post}>
+                                                  remove_post={remove_post}
+                                                  smallerScreen={windowWidth < 660}
+                                >
                                 </PostActionButton>
                         }
 
 
                     </SubTitleBundle>
 
-                    <PostContentDiv dangerouslySetInnerHTML={{__html: content}}></PostContentDiv>
+                    <PostContentDiv dangerouslySetInnerHTML={{__html: content}}
+                                    smallScreen={windowWidth < 1050}
+                                    smallerScreen={windowWidth < 660}></PostContentDiv>
 
                 </PostWrapper>
 
@@ -179,7 +260,7 @@ const Post = (props) => {
 
 
 
-        </div>
+        </>
     );
 };
 
