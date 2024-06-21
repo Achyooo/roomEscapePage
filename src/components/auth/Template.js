@@ -1,8 +1,9 @@
 // Template.js
+// 로그인 회원가입 틀의...대장...?
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../../libs/styles/palette';
 import Button from '../../libs/common/Button';
 
@@ -43,15 +44,44 @@ const FormBoxDiv = styled.div`
         color: transparent;
         -webkit-background-clip: text;
     }
+    /* 500px 미만 환경 */
+    ${(props)=>
+        props.smallerScreen && 
+        css`
+            width: 290px
+        `
+    }
 `
 
 
 
+/////
+
+
+
+
 const Template = ({children}) => {
+
+    // 반응형
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[])
+
+
+
     return (
         <TemplateDiv>
 
-            <FormBoxDiv>
+            <FormBoxDiv smallerScreen={windowWidth < 500}>
                 <div>
                     <Link to="/" className="logo">DreamRoom</Link>
                 </div>

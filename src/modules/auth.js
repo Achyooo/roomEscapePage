@@ -26,16 +26,15 @@ export const logout_id = () => ({type:LOGOUT_ID})
 const initialState = {
     mode: "login",
 
+    register: {
+      username: "",
+      password: "",
+      nickname: ""
+    },
+
     login: {
         username: "",
-        password: "",
-        nickname: ""
-    },
-    register: {
-        username: "",
-        password: "",
-        passwordConfirm: "",
-        nickname: ""
+        password: ""
     },
 
     list: idPws,
@@ -64,46 +63,48 @@ export const auth = (state=initialState, actions) => {
 
         case SUBMIT_REGISTER :
 
-          // console.log("하시발진짜", actions.username, actions.password)
+            // console.log("액션잘받아오는지확인용입니다", actions.username, actions.password, actions.nickname)
           
-          newList.push({username: actions.username,
-                        password: actions.password,
-                        nickname: actions.nickname})
+            newList.push({username: actions.username,
+                          password: actions.password,
+                          nickname: actions.nickname})
 
-          console.log(newList) // 회원가입아이디패스워드잘들어갔나확인함
+            console.log(newList) // 회원가입 아이디패스워드닉넴 데이터베이스 리스트에 잘들어갔나확인함
 
-          return {
-            ...state,
-            register: {username: actions.username,
-                       password: actions.password,
-                       nickname: actions.nickname}, 
-            list: newList
-          }
+            return {
+              ...state,
+              register: {username: actions.username,
+                         password: actions.password,
+                         nickname: actions.nickname}, 
+              list: newList
+            }
 
         case SUBMIT_LOGIN :
 
-          let loginSuccessList = newList.filter((item)=>item.username === actions.username && item.password === actions.password && item.nickname)
+            let loginSuccessList = newList.filter((item)=>item.username === actions.username &&
+                                                          item.password === actions.password &&
+                                                          item.nickname)
 
-          console.log(loginSuccessList)
-          // newList에 있는거랑 같은거면 여기에 들어감 = 아무튼 1개 이상이 될거임
-          // console.log(loginSuccessList[0].username)
+            console.log(loginSuccessList)
+            // newList에 있는거랑 같은거면 여기에 들어감 // 현재 로그인하는 아이디비번닉넴
+            // console.log(loginSuccessList[0].username) // 확인용. 어차피 1개라서 0번째 씀
 
-          return {
-            ...state,
-            login: {username: actions.username, password: actions.password, nickname: actions.nickname}, 
-            list: newList,
-            // user: actions.username
-            loginUsername: loginSuccessList[0].username,
-            loginNickname: loginSuccessList[0].nickname
-          }
+            return {
+              ...state,
+              login: {username: actions.username,
+                      password: actions.password},
+              list: newList,
+              loginUsername: loginSuccessList[0].username,
+              loginNickname: loginSuccessList[0].nickname
+            }
 
         case LOGOUT_ID :
 
-          return {
-            ...state,
-            loginUsername: null,
-            loginNickname: null
-          }
+            return {
+              ...state,
+              loginUsername: null,
+              loginNickname: null
+            }
 
 
         default:
