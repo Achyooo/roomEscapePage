@@ -107,12 +107,6 @@ const PostingsPlace = styled.div`
 
 
 
-
-/////
-
-
-
-
 ////////////
 
 
@@ -129,7 +123,7 @@ const PostList = (props) => {
            new_title,
            new_theme} = props
 
-    // 쓰겟다
+    // 쓰겠다
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
 
@@ -164,14 +158,13 @@ const PostList = (props) => {
     }
 
 
-
+    // 셀렉트-옵션으로 테마 필터링
     const filteredPostings = selectedTheme === "All" ?
                                 postings :
                                 postings.filter(post => post.theme === selectedTheme)
 
 
     // console.log(filteredPostings)
-
     // console.log(postings[1].theme);
 
 

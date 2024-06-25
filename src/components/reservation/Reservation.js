@@ -285,7 +285,6 @@ const Reservation = (props) => {
     // 달력 클릭
     const handleToggleCalendar = () => {
         setIsOpen(!isOpen);
-
     };
 
     const handleDateChange = (selectedDate) => {
@@ -315,18 +314,18 @@ const Reservation = (props) => {
 
     // 캘린더 바깥 클릭했을때 캘린더 닫히는 기능인데여
     // 근데 박스 다시 클릭해도 캘린더 닫히는 기능 유지하고싶어서 이따 개선
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+    //             setIsOpen(false);
+    //         }
+    //     };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
 
 
 

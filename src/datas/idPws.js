@@ -1,11 +1,11 @@
-// idPws.js
+// 아이디비밀번호닉네임 데이터 (로그인, 회원가입)
 
 export const idPws = [
 
     {
         username: "qwer",
         password: "qwer",
-        nickname: "너무졸리다"
+        nickname: "쿼"
     },
 
     {
@@ -17,13 +17,13 @@ export const idPws = [
     {
         username: "zxcv",
         password: "zxcv",
-        nickname: "ㅎㅇㅎㅇ"
+        nickname: "닉넴"
     },
 
     {
-        username: "t",
-        password: "q",
-        nickname: "화가남"
+        username: "111",
+        password: "222",
+        nickname: "삼삼삼"
     }
     
 ]

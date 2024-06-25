@@ -1,3 +1,5 @@
+// 테마 데이터
+
 import sampleImg_small1 from "./images/sampleImg_small1.png";
 import sampleImg_small2 from "./images/sampleImg_small2.png";
 import sampleImg_small3 from "./images/sampleImg_small3.png";

@@ -1,3 +1,5 @@
+// 예약 데이터
+
 import { themeDatas } from "./themeDatas"
 
 export const reservationDatas = [
@@ -6,7 +8,7 @@ export const reservationDatas = [
         theme: themeDatas[0].name,
         date: "2024-06-15",
         time: themeDatas[0].availableTimes[0],
-        clientName: "에휴",
+        clientName: "홍길동",
         clientPhone: "01012345678",
         clientPw: "qwer",
         perCost: themeDatas[0].cost,
@@ -18,7 +20,7 @@ export const reservationDatas = [
         theme: themeDatas[1].name,
         date: "2024-06-15",
         time: themeDatas[1].availableTimes[1],
-        clientName: "ㅠㅠ",
+        clientName: "이순신",
         clientPhone: "01000000000",
         clientPw: "asdf",
         perCost: themeDatas[1].cost,

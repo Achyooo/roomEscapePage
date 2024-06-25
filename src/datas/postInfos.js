@@ -1,3 +1,5 @@
+// 포스팅 데이터 (후기글)
+
 import { themeDatas } from "./themeDatas"
 
 // console.log(themeDatas[0].name)
@@ -11,7 +13,7 @@ export const postInfos = [
         title: "수정되는지 확인용",
         content: "입니다",
         theme: themeDatas[0].name,
-        nickname: "너무졸리다"
+        nickname: "쿼"
     },
 
     {
@@ -29,7 +31,7 @@ export const postInfos = [
         title: "제목입니다",
         content: "내용입니다",
         theme: themeDatas[2].name,
-        nickname: "너무졸리다"
+        nickname: "쿼"
     },
 
     {
