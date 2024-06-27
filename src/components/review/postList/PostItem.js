@@ -4,7 +4,6 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import palette from '../../../libs/styles/palette';
 import styled, { css } from 'styled-components';
 
 

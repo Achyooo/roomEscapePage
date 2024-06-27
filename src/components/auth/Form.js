@@ -1,7 +1,7 @@
 // Form.js
 
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../libs/common/Button';
 import styled from 'styled-components';
 import palette from '../../libs/styles/palette';
@@ -66,18 +66,14 @@ const textType = {
 const Form = (props) => {
 
     const navigate = useNavigate();
-    const loaction = useLocation();
+    // const loaction = useLocation();
 
 
-    const {mode,
-            form,
-            username,
-            password,
-            nickname,
+    const { mode,
             list,
             change_mode,
             submit_register,
-            submit_login} = props;
+            submit_login } = props;
 
     const [error, setError] = useState()
 
@@ -114,7 +110,7 @@ const Form = (props) => {
                 console.log(exist)
                 // 있:{username: 'asdf', password: '1234'} 없:undefined
                 if(exist){
-                    // true일때 (무튼 false취급하는것들 빼고 뭐가 있으면 트루임)
+                    // true일때 (아무튼 false취급하는것들 빼고 뭐가 있으면 트루임)
                     setError("이미 존재하는 아이디입니다.")
                 }else{
                     if(e.target.password.value === e.target.passwordConfirm.value){

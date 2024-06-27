@@ -1,7 +1,6 @@
 // postList.js
 
 
-// 데이터를 가져오는 역할을 하는 리듀서구요
 
 
 import { handleActions } from "redux-actions";
@@ -15,12 +14,6 @@ const INITIALIZE = "postList/INITIALIZE";
 export const initialize = () => ({type:INITIALIZE})
 
 
-
-
-
-// 밖에다
-// const itemsPerPage = 5;
-// const lastPage = Math.ceil(Number(postInfos.length) / itemsPerPage);
 
 
 

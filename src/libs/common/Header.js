@@ -72,7 +72,6 @@ const MenuUl = styled.div`
 
 const MenuLi = styled.li`
     font-size: 18px;
-    /* font-weight: bold; */
     padding: 8px 26px;
 `
 
@@ -103,7 +102,6 @@ const UserDiv = styled.div`
     font-weight: 800;
     margin-right: 1rem;
     white-space: nowrap;
-    /* word-break: keep-all; */
 `
 
 const SpanStyle = styled.span`
@@ -142,7 +140,7 @@ const Header = (props) => {
     const onClickLogout = () => {
         logout_id();
         alert("로그아웃 되었습니다.");
-        // 글쓰기페이지에서 로그아웃할 경우 이전으로 돌아가게 해야함
+        // 글쓰기페이지에서 로그아웃할 경우, 이전으로 돌아가게 해야함
         if(loca.pathname === '/write'){
             navi(-1)
         }
@@ -158,7 +156,7 @@ const Header = (props) => {
     };
 
 
-    // console.log(user);
+    // console.log(user); // 확인용
 
 
     return (

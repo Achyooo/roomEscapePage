@@ -3,7 +3,7 @@
 import React, { useEffect, memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../datas/themeDatas';
 
@@ -108,26 +108,18 @@ const WritePage = (props) => {
         postings,
         loginUsername,
         loginNickname,
-        username,
         title,
         content,
         theme,
-        initialize,
         change_title,
         change_content,
-        change_theme,
         create_post,
-        postId,
-        postTitle,
-        postTags,
         id,
-        edit_post,
-        new_title,
-        new_theme} = props
+        edit_post} = props
 
     
     // console.log(postId, postTitle)
-    // console.log("제발", loginUsername, loginNickname)
+    // console.log("제발 잘 받아와줘", loginUsername, loginNickname)
 
 
 
@@ -156,14 +148,12 @@ const WritePage = (props) => {
 
 
     const handleThemeChange = (e) => {
-        // setSearchParams({page:1})
         setSelectedTheme(e.target.value);
     }
 
 
 
     const onChange = (e) => {
-        // console.log("dd", title)
         change_title(e.target.value);
     }
 
@@ -185,7 +175,6 @@ const WritePage = (props) => {
             navi(`/review`);
         }
     };
-
 
 
     // console.log("테마: ", theme)

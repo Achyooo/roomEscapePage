@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
-
-import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
-import { themeDatas } from '../../datas/themeDatas'
 
 import CancelModal from '../../libs/modals/CancelModal';
 
@@ -82,7 +79,7 @@ const InfoWrapper = styled.div`
     margin: 0px auto;
     margin-top: 70px;
     font-size: 18px;
-    /* 610px 이하에서 */
+    /* 660px 이하에서 */
     ${(props)=>
         props.smallerScreen && 
         css`
@@ -93,7 +90,7 @@ const InfoWrapper = styled.div`
     .bundle-oneLine{
         display: flex;
         margin-bottom: 40px;
-        /* 610px 이하에서 라인 하나 */
+        /* 660px 이하에서 라인 하나 */
         ${(props)=>
             props.smallerScreen && 
             css`
@@ -103,18 +100,17 @@ const InfoWrapper = styled.div`
         .oneLine-title{
             width: 200px;
             color: #afafaf;
-            /* 610px 이하에서 세부 제목 */
+            /* 660px 이하에서 세부 제목 */
             ${(props)=>
                 props.smallerScreen && 
                 css`
                     width: 110px;
-                    /* padding-right: 10px; */
                 `
             }
         }
         .oneLine-content{
             width: 150px;
-            /* 610px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+            /* 660px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
             ${(props)=>
                 props.smallerScreen && 
                 css`
@@ -145,7 +141,6 @@ const ButtonWrapper = styled.div`
         border-radius: 4px;
         font-size: 1.3rem;
         font-weight: bold;
-        /* transition: all 0.4s; */
         cursor: pointer;
     }
     .backBtn{
@@ -307,7 +302,7 @@ const ReservationLookSuccess = (props) => {
                 </InfoWrapper>
 
 
-                {/* 목록버튼과 삭제버튼 만들 예정 */}
+                {/* 목록버튼과 예약 취소 버튼 */}
                 <ButtonWrapper smallScreen={windowWidth < 1050}
                                smallerScreen={windowWidth < 660}>
                     <button className="backBtn" onClick={onClickBack}>목록으로</button>

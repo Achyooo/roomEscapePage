@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -144,7 +144,7 @@ const Carousel = () => {
             { threshold: 0.5 } // 노출 정도
         );
 
-        const container = document.querySelector(".themeContainer")
+        const container = document.querySelector(".themeContainer") // 컨테이너 클래스 선택
         if(container){
             observer.observe(container); // 관찰 시작
         }

@@ -1,8 +1,6 @@
 // MainPage.js
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import Header from '../libs/common/Header';
 import Main from '../components/main/Main';
 import Carousel from '../components/main/Carousel';

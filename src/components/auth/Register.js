@@ -1,7 +1,7 @@
 
 // Register.js
 
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import Form from './Form';
 
 import { connect } from 'react-redux';

@@ -73,7 +73,7 @@ export const reserv = (state=initialState, actions) => {
 
         case SUBMIT_RESERVATION_REGISTER :
 
-        //   console.log("개빡침", actions.clientName, actions.clientPhone, actions.clientPw)
+        //   console.log("잘 받아오나요옹", actions.clientName, actions.clientPhone, actions.clientPw)
           
           newList.push({theme: actions.theme,
                         date: actions.date,
@@ -86,7 +86,7 @@ export const reserv = (state=initialState, actions) => {
                         totalCost: actions.totalCost
                         })
 
-          // console.log(newList) // 저것들... 리스트에 들어갔나 확인
+          // console.log(newList) // 저것들 리스트에 들어갔나 확인
 
           return {
             ...state,

@@ -4,12 +4,11 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../libs/common/Header';
 import Post from '../../components/review/post/Post';
-// import PostActionButton from '../components/post/PostActionButton';
 import Footer from '../../libs/common/Footer';
 
 import { connect } from 'react-redux';
 
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 
 import { bring_post } from '../../modules/write';

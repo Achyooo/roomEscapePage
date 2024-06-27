@@ -1,4 +1,4 @@
-// 예약 데이터
+// 예약 데이터 (샘플 2개)
 
 import { themeDatas } from "./themeDatas"
 

@@ -9,7 +9,6 @@ const TimeButton = styled.button`
     margin: 10px;
     font-size: 1.3rem;
     font-weight: bold;
-    /* transition: all 0.4s; */
     border-radius: 4px;
     color: ${(props) => (props.disabled ? '#aaa' : '#fff')};
     background-color: ${(props) => (props.disabled ? '#ddd' : '#C9C1FF')};

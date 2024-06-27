@@ -1,8 +1,8 @@
 // Pagination.js
 
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import qs from 'qs'
 
@@ -39,7 +39,6 @@ const Pagination = (props) => {
     const buildLink = ({page}) => {
         const query = qs.stringify({page})
         // console.log(page)
-        // return userNickname ? `/review/${userNickname}?${query}` : `/review/?${query}`
         return `/review/?${query}`
     }
 
@@ -66,8 +65,7 @@ const Pagination = (props) => {
             </Button>
 
 
-            <div>{page}</div>
-            {/* 가운데 숫자 */}
+            <div>{page}</div> {/* 가운데 숫자 */}
 
 
             <Button

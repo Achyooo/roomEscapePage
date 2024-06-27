@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import styled, { css, keyframes } from 'styled-components';
 
-import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../datas/themeDatas'
 
 import StarRating from './StarRating';
 
 
 
-//
 
-// 렌더링되면 파앗
+
+// 렌더링되면 파앗!
 const appearAni = keyframes`
     0% {
         opacity: 0;
@@ -251,6 +250,7 @@ const Theme = () => {
 
 
     // 타켓 요소가 화면에 노출되었는지 판단, IntersectionObserver
+    // 이거 어렵다. 복습 필요.
     useEffect(() => {
 
         const options = { threshold: 0.2 };
@@ -262,7 +262,7 @@ const Theme = () => {
                     newInView[entry.target.dataset.index] = entry.isIntersecting;
                     // isIntersecting = 관찰 대상이 현재 루트 안에 포함되어 있는지의 여부 확인
                     // console.log("그 인덱스 = " + entry.target.dataset.index)
-                    // console.log("루트안에포함되어잇니? = " + entry.isIntersecting);
+                    // console.log("루트안에포함되어있니 = " + entry.isIntersecting);
                     return newInView;
                 });
             })

@@ -66,7 +66,7 @@ const BodyWrapper = styled.div`
 const InfoWrapper = styled.div`
     display: flex;
     justify-content: center;
-    /* 610px 이하에서 */
+    /* 660px 이하에서 */
     ${(props)=>
         props.smallerScreen && 
         css`
@@ -79,7 +79,7 @@ const InfoWrapper = styled.div`
         .bundle-oneLine{
             display: flex;
             padding-bottom: 40px;
-            /* 610px 이하에서 라인 하나 밑 패딩 */
+            /* 660px 이하에서 라인 하나 밑 패딩 */
             ${(props)=>
                 props.smallerScreen && 
                 css`
@@ -89,7 +89,7 @@ const InfoWrapper = styled.div`
             .oneLine-title{
                 width: 150px;
                 color: #afafaf;
-                /* 610px 이하에서 세부 제목 */
+                /* 660px 이하에서 세부 제목 */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -103,7 +103,7 @@ const InfoWrapper = styled.div`
                 font-size: 17px;
                 padding: 3px 6px;
                 height: 30px;
-                /* 610px 이하에서 세부 내용 (input) */
+                /* 660px 이하에서 세부 내용 (input) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -156,20 +156,13 @@ const ErrorWrapper = styled.div`
 
 const ReservationLook = (props) => {
 
-    const { clientPhone,
-            clientPw,
-            numOfPeople,
-            theme,
-            date,
-            time,
-            perCost,
-            totalCost,
-            list } = props;
+    const { list } = props;
 
     const { submit_reservation_login } = props;
 
 
     const [error, setError] = useState();
+
     // 반응형
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -213,7 +206,7 @@ const ReservationLook = (props) => {
                     e.target.clientPhone.value,
                     e.target.clientPw.value,
                 );
-                // 와 짱길다
+                // 길...다
                 navi(`/reservationLookSuccess?theme=${wantToLook[0].theme}&date=${wantToLook[0].date}&time=${wantToLook[0].time}&clientName=${e.target.clientName.value}&clientPhone=${e.target.clientPhone.value}&person=${wantToLook[0].numOfPeople}&totalCost=${wantToLook[0].totalCost}&`);
             } else {
                 alert("예약 정보가 없습니다. 예약 당시 입력했던 정보를 정확히 입력해주세요.");

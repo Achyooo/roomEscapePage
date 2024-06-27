@@ -97,6 +97,7 @@ const Wrapper = styled.div`
                 word-break: keep-all;
             }
         }
+        /* 인터섹션옵저버로 show 클래스 생겼을 때 */
         .oneCaution.show{
             opacity: 1;
             transform: translateX(0);
@@ -141,7 +142,7 @@ const Wrapper = styled.div`
 const Caution = () => {
 
 
-    // 2000px 이상일때 넓이 제한 주기
+    // 2000px 이상일때 넓이 제한 주기. 반응형.
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     useEffect(()=>{

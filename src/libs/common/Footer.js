@@ -33,7 +33,7 @@ const Footer = () => {
             <Describe>
                 상호 : 드림룸 │ 대표 : 안효주 │ 사업자번호 : 123-45-67890<br/>
                 전화 : 010-1234-5678<br/>
-                주소 : 서울시 강남구<br/>
+                주소 : 서울시 강남구 어딘가<br/>
             </Describe>
 
             <GeneralConditions>

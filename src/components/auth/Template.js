@@ -1,11 +1,9 @@
 // Template.js
-// 로그인 회원가입 틀의...대장...?
+// 로그인, 회원가입 틀의...대장...?
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import palette from '../../libs/styles/palette';
-import Button from '../../libs/common/Button';
 
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 

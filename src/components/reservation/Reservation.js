@@ -9,13 +9,8 @@ import Calendar from 'react-calendar';
 import moment from "moment";
 import "./CalendarStyle.css";
 
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
 import TimeButtons from './TimeButtons';
 
-import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 import { themeDatas } from '../../datas/themeDatas'
 
 
@@ -312,31 +307,15 @@ const Reservation = (props) => {
     };
     
 
-    // 캘린더 바깥 클릭했을때 캘린더 닫히는 기능인데여
-    // 근데 박스 다시 클릭해도 캘린더 닫히는 기능 유지하고싶어서 이따 개선
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-    //             setIsOpen(false);
-    //         }
-    //     };
-
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
-
-
 
     const handleReserve = (theme, date, time) => {
 
         console.log(theme, date, time)
-        // TimeButtons에서 온거야. TimeButtons에서 함수가 호출될 때 전달되는 인자.
+        // TimeButtons에서 온것. TimeButtons에서 함수가 호출될 때 전달되는 인자.
         
         const cost = themeDatas[selectedThemeIndex].cost;
 
-        // 파라미터 갖고 여기로 가요
+        // 파라미터 갖고 여기로 가자
         navi(`/reservationMake?themeIndex=${selectedThemeIndex}&theme=${theme}&date=${date}&time=${time}&cost=${cost}`)
         
     }

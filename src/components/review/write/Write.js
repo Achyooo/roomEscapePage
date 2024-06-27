@@ -1,14 +1,12 @@
 // Write.js
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
-import { useSearchParams } from 'react-router-dom';
 
-
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
 
 import styled, { css } from 'styled-components';
@@ -84,7 +82,7 @@ const QuillDiv = styled.div`
 
 const Write = (props) => {
 
-    const {postings, title, change_content, onChange, smallScreen, smallerScreen} = props;
+    const {title, change_content, onChange, smallScreen, smallerScreen} = props;
 
 
     const {update_content} = useSelector((state)=>({
@@ -116,22 +114,15 @@ const Write = (props) => {
         const quill = quillInstance.current
         quill.on('text-change', (delta, oldDelta, source)=>{
             if(source==='user'){
-                // console.log(quill.root.innerHTML); // 이렇게쓰닉까 p태그 붙어서 나옴
                 change_content(quill.root.innerHTML)
             }
-            // if(source==='user'){
-            //     onChangeField({key: 'body', value: quill.root.innerHTML});
-            // }
         })
         return () => {
             initialize()
         }
     }, [initialize])
 
-    // const mounted = useRef(false);
     useEffect(()=>{
-        // if(mounted.current) return;
-        // mounted.current = true;
         quillInstance.current.root.innerHTML = update_content;
     }, [])
 

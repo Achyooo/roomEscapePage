@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 
 import styled, { keyframes, css } from 'styled-components';
 import night_pastel_a from "../../datas/images/night_pastel_a.jpg";
-import { themeDatas } from '../../datas/themeDatas';
 
 const FontContainer = styled.div`
     width: 100%;
@@ -152,7 +151,7 @@ const MainImgInfiniteAni = styled.div`
 
 const Main = () => {
 
-    // 그냥 간단하게 반응형이라고 주석을 달기로 한다
+    // 반응형
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     useEffect(()=>{
@@ -169,7 +168,6 @@ const Main = () => {
 
     const onAnimationEnd = () => {
         document.querySelector(".mainImgInfiniteAni").style.opacity = 1;
-        // document.querySelector(".mainImgAni").style.opacity = 0;
     }
 
     return (
@@ -177,8 +175,8 @@ const Main = () => {
             <FontContainer>
 
                 <MainFontWrapper smallerScreen={windowWidth < 950}>
-                    <HeadFont className='headFont'>메인 멘트 들어가는 자리입니다</HeadFont>
-                    <SubFont className='subFont'>캐치프레이즈 들어가는 자리입니다</SubFont>
+                    <HeadFont className='headFont'>방 문을 열고, 꿈과 같은 세상 속으로</HeadFont>
+                    <SubFont className='subFont'>" Open the door and Dream your world "</SubFont>
                 </MainFontWrapper>
 
                 <MainImgAni className="mainImgAni"

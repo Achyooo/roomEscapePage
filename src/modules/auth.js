@@ -1,7 +1,7 @@
 // auth.js
 
 
-// import { createAction, handleActions } from "redux-actions";
+
 import { idPws } from "../datas/idPws"
 
 

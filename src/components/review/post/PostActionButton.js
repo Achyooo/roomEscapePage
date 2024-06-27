@@ -1,7 +1,5 @@
 import React from 'react';
 
-import palette from '../../../libs/styles/palette';
-
 import styled, { css } from 'styled-components';
 import DeleteModal from '../../../libs/modals/DeleteModal'
 

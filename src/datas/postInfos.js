@@ -1,4 +1,4 @@
-// 포스팅 데이터 (후기글)
+// 포스팅 데이터 (샘플 15개)
 
 import { themeDatas } from "./themeDatas"
 

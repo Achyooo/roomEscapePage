@@ -20,7 +20,6 @@ const ActionButtonDiv = styled.div`
 
 const StyleButton = styled(Button)`
     word-break: keep-all;
-    /* white-space: nowrap; */
     height: 2.125rem;
     margin-top: 30px;
     &+&{

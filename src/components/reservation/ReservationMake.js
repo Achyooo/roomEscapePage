@@ -4,9 +4,6 @@ import styled, { keyframes, css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
-import { themeDatas } from '../../datas/themeDatas'
-
 
 
 /////
@@ -57,7 +54,6 @@ const InfoTopWrapper = styled.div`
         props.smallScreen && 
         css`
             flex-direction: column;
-            /* margin-left: 50px; */
         `
     }
     ${(props)=>
@@ -70,7 +66,7 @@ const InfoTopWrapper = styled.div`
         .bundle-oneLine{
             display: flex;
             padding-bottom: 55px;
-            /* 610px 이하에서 라인 하나 밑 패딩 (1,2,3번째) */
+            /* 660px 이하에서 라인 하나 밑 패딩 (1,2,3번째) */
             ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -87,7 +83,7 @@ const InfoTopWrapper = styled.div`
                         width: 150px;
                     `
                 }
-                /* 610px 이하에서 세부 제목 (테마명, 예약일, 예약시간) */
+                /* 660px 이하에서 세부 제목 (테마명, 예약일, 예약시간) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -105,7 +101,7 @@ const InfoTopWrapper = styled.div`
                         width: 200px;
                     `
                 }
-                /* 610px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
+                /* 660px 이하에서 세부 내용 (샘플테마1, 2024-06-xx, xx:xx) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -127,7 +123,7 @@ const InfoTopWrapper = styled.div`
                         align-items: center;
                     `
             }
-            /* 610px 이하에서 라인 하나 밑 패딩 (4,5,6번째) */
+            /* 660px 이하에서 라인 하나 밑 패딩 (4,5,6번째) */
             ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -144,7 +140,7 @@ const InfoTopWrapper = styled.div`
                         width: 150px;
                     `
                 }
-                /* 610px 이하에서 세부 제목 (예약자본명, 연락처, 예약확인번호) */
+                /* 660px 이하에서 세부 제목 (예약자본명, 연락처, 예약확인번호) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -166,7 +162,7 @@ const InfoTopWrapper = styled.div`
                         height: 25px;
                     `
                 }
-                /* 610px 이하에서 세부 내용 (input) */
+                /* 660px 이하에서 세부 내용 (input) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -190,7 +186,6 @@ const InfoBottomWrapper = styled.div`
         props.smallScreen && 
         css`
             flex-direction: column;
-            /* margin-left: 80px; */
             margin-top: 40px;
         `
     }
@@ -204,7 +199,7 @@ const InfoBottomWrapper = styled.div`
         .bundle-oneLine{
             display: flex;
             padding-bottom: 55px;
-            /* 610px 이하에서 라인 하나 밑 패딩 (7번째) */
+            /* 660px 이하에서 라인 하나 밑 패딩 (7번째) */
             ${(props)=>
                 props.smallerScreen && 
                 css`
@@ -221,7 +216,7 @@ const InfoBottomWrapper = styled.div`
                         width: 150px;
                     `
                 }
-                /* 610px 이하에서 세부 제목 (인당가격) */
+                /* 660px 이하에서 세부 제목 (인당가격) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -232,7 +227,7 @@ const InfoBottomWrapper = styled.div`
             }
             .oneLine-content{
                 width: 200px;
-                /* 610px 이하에서 세부 내용 (20000원) */
+                /* 660px 이하에서 세부 내용 (20000원) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -263,7 +258,7 @@ const InfoBottomWrapper = styled.div`
                     align-items: center;
                 `
             }
-            /* 610px 이하에서 라인 하나 밑 패딩 (8,9번째) */
+            /* 660px 이하에서 라인 하나 밑 패딩 (8,9번째) */
             ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -274,7 +269,7 @@ const InfoBottomWrapper = styled.div`
             .oneLine-title{
                 width: 150px;
                 color: #afafaf;
-                /* 610px 이하에서 세부 제목 (인원, 현장결제금액) */
+                /* 660px 이하에서 세부 제목 (인원, 현장결제금액) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -296,7 +291,7 @@ const InfoBottomWrapper = styled.div`
                         height: 35px;
                     `
                 }
-                /* 610px 이하에서 세부 내용 (select) */
+                /* 660px 이하에서 세부 내용 (select) */
                 ${(props)=>
                     props.smallerScreen && 
                     css`
@@ -364,21 +359,14 @@ const ErrorWrapper = styled.div`
 
 const ReservationMake = (props) => {
 
-    const { clientPhone,
-            clientPw,
-            numOfPeople,
-            theme,
-            date,
-            time,
-            perCost,
-            totalCost,
-            list } = props;
+    const { list } = props;
 
     const { submit_reservation_register } = props;
     
 
     const [totalPayment, setTotalPayment] = useState("--");
     const [error, setError] = useState();
+
     // 반응형
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -447,7 +435,7 @@ const ReservationMake = (props) => {
                 );
                 alert("예약이 완료되었습니다.");
                 
-                // 어..잠깐일단여기로꺼져봐..
+                // 여기로 가자...
                 navi(`/reservationSuccess?themeIndex=${themeIndexParam}&theme=${themeParam}&date=${dateParam}&time=${timeParam}&person=${e.target.numOfPeople.value}&totalCost=${totalPayment}`);
             }
         }

@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import sky_pastel_a from '../../datas/images/sky_pastel_a.jpg'
 
 import Header from '../../libs/common/Header';
