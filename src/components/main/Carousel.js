@@ -7,7 +7,7 @@ import StarRating from '../theme/StarRating';
 import { themeDatas } from '../../datas/themeDatas';
 import styled, { css } from 'styled-components';
 
-// Slick 슬라이더 설정
+// Slick 슬라이더 환경설정
 const defaultSettings = {
     dots: false,
     infinite: true,
@@ -22,7 +22,7 @@ const defaultSettings = {
 };
 
 
-// Theme와 선
+// Theme와 ─────────
 const TitleAndLine = styled.div`
     margin-top: 200px;
     .line {
@@ -99,12 +99,11 @@ const carouselList = [ themeDatas[0], themeDatas[1], themeDatas[2] ];
 
 const Carousel = () => {
 
-    const [inView, setInView] = useState(false);
-    // console.log(inView)
+    const [inView, setInView] = useState(false); // view 안에 들어왔는지 상태
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const [settings, setSettings] = useState(defaultSettings);
+    const [settings, setSettings] = useState(defaultSettings); // 카로셀 환경설정 상태
 
-    // 넓이에 따른 크기 조정
+    // 넓이에 따른 크기 조정...
     useEffect(()=>{
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -116,7 +115,7 @@ const Carousel = () => {
         };
     },[])
 
-    // 넓이 950픽셀 미만일 때
+    // 넓이 950픽셀 미만일 때 카로셀 환경설정 변경
     useEffect(()=>{
         if (windowWidth < 950){
             setSettings({
