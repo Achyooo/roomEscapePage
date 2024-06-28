@@ -59,20 +59,28 @@ const DeleteModal = (props) => {
 
 
     useEffect(()=>{
-        setVisible(modal)
+        setVisible(modal);
     }, [modal])
 
 
     const navi = useNavigate();
 
+    const onClickBackground = () => {
+        modal_mode(false);
+    }
+
+    const onClickModal = (e) => {
+        e.stopPropagation();
+    }
+
     const onConfirm = () => {
-        modal_mode(false)
-        remove_post(id)
-        navi('/review')
+        modal_mode(false);
+        remove_post(id);
+        navi('/review');
     }
 
     const onCancel = () => {
-        modal_mode(false)
+        modal_mode(false);
     }
 
 
@@ -82,8 +90,8 @@ const DeleteModal = (props) => {
 
 
     return (
-        <FullScreenDiv>
-            <ModalDiv>
+        <FullScreenDiv onClick={onClickBackground}>
+            <ModalDiv onClick={onClickModal}>
                 <h2>삭제 확인</h2>
                 <p>정말 삭제하시겠습니까?</p>
                 <div className='buttons'>

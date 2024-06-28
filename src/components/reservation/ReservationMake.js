@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 

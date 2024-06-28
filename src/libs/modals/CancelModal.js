@@ -75,6 +75,14 @@ const CancelModal = (props) => {
 
     const navi = useNavigate();
 
+    const onClickBackground = () => {
+        modal_mode(false)
+    }
+
+    const onClickModal = (e) => {
+        e.stopPropagation();
+    }
+
     const onConfirm = () => {
         alert("예약이 취소되었습니다.")
         modal_mode(false)
@@ -91,8 +99,8 @@ const CancelModal = (props) => {
 
 
     return (
-        <FullScreenDiv>
-            <ModalDiv>
+        <FullScreenDiv onClick={onClickBackground}>
+            <ModalDiv onClick={onClickModal}>
                 <h2>예약 취소</h2>
                 <p>정말 예약을 취소하시겠습니까?</p>
                 <div className='buttons'>

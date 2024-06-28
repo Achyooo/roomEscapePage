@@ -238,11 +238,10 @@ const Reservation = (props) => {
     // console.log(list) // 예약된리스트
 
 
-    const [value, onChange] = useState(new Date());
-    const [nowDate, setNowDate] = useState("날짜 선택");
-    const [isOpen, setIsOpen] = useState(false);
-
-    const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
+    const [value, onChange] = useState(new Date()); // 한국 표준시. 온체인지로
+    const [nowDate, setNowDate] = useState(); // 선택한 날짜(년-월-일), 즉 인풋칸...이라고도 볼수있기도하고아니기도하고
+    const [isOpen, setIsOpen] = useState(false); // 달력 보여줄까말까보여줄까말까
+    const [selectedThemeIndex, setSelectedThemeIndex] = useState(0); // 테마 인덱스
 
 
     // 반응형
@@ -267,33 +266,42 @@ const Reservation = (props) => {
 
 
 
+    // 테마소개페이지에서 예약하기 버튼 누르는 행위로 해당 예약페이지에 오는거라면,
+    // 거기서 보낸 파라미터를 찾아서 그 테마 에약현황을 보여주기
     useEffect(()=>{
         const themeIndex = searchParams.get('themeIndex');
+        // console.log(themeIndex)
         if(themeIndex){
-            setSelectedThemeIndex(parseInt(themeIndex))
+            setSelectedThemeIndex(parseInt(themeIndex));
         }
-        setNowDate(moment(new Date()).format("YYYY년 MM월 DD일"));
+        setNowDate(moment(new Date()).format("YYYY년 MM월 DD일")); // (굳이 안써도 될 것 같긴 한데)
     }, [searchParams])
 
 
 
-    // 달력 클릭
+    // 달력선택박스(날짜:[]<<이것) 클릭, 열고닫기
     const handleToggleCalendar = () => {
         setIsOpen(!isOpen);
     };
 
+
+    // 달력 안에서 날짜(보라색 동글동글 그것이다) 클릭
     const handleDateChange = (selectedDate) => {
-        onChange(selectedDate);
-        setIsOpen(false);
-        setNowDate(moment(selectedDate).format("YYYY년 MM월 DD일"));
+        // console.log(selectedDate)
+        onChange(selectedDate); // 선택한 그 날짜로 바꿔줘요. 상단 useState의 그 onChange이다.
+        setIsOpen(false); // 날짜를 클릭했으면 오 선택끝났니 하고 달력이 닫힌다
+        setNowDate(moment(selectedDate).format("YYYY년 MM월 DD일")); // 인풋창 안에도 선택한걸로 바꿔줘야.
     };
 
+
+    // 테마 선택박스 클릭. 데이터 배열에서 인덱스를 찾아 보여주기로 한다.
     const handleThemeChange = (e) => {
         const index = themeDatas.findIndex(theme => theme.name === e.target.value);
         // console.log(index);
         setSelectedThemeIndex(index);
     };
 
+    // 한국표준시 표기 바꾸는 유즈이펙트
     useEffect(() => {
         setNowDate(moment(new Date()).format("YYYY년 MM월 DD일"));
     }, []);
@@ -305,9 +313,9 @@ const Reservation = (props) => {
         }
         return false;
     };
-    
 
 
+    // 테마날짜시간 예약정보 가지고 진짜 예약하러 가좍
     const handleReserve = (theme, date, time) => {
 
         console.log(theme, date, time)
@@ -315,13 +323,28 @@ const Reservation = (props) => {
         
         const cost = themeDatas[selectedThemeIndex].cost;
 
-        // 파라미터 갖고 여기로 가자
+        // 파라미터 갖고 여기로 렛츠고 렛츠고
         navi(`/reservationMake?themeIndex=${selectedThemeIndex}&theme=${theme}&date=${date}&time=${time}&cost=${cost}`)
         
     }
 
 
- 
+
+    // 캘린더 밖 클릭해도 닫히도록 만든다. 선언한 calendarRef로
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (calendarRef.current && !calendarRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [calendarRef, setIsOpen]);
+
+
 
     ///////////////////////////////////////////////////////////
 
@@ -343,9 +366,13 @@ const Reservation = (props) => {
                                      smallerScreen={windowWidth < 660}>
 
                             <TitleAndDateWrapper smallerScreen={windowWidth < 660}>
+
+                                {/* 테마 */}
                                 <Bundle smallerScreen={windowWidth < 660}>
                                     <ThemeTitleStyle smallerScreen={windowWidth < 660}>테마</ThemeTitleStyle>
                                     <Dotdot smallerScreen={windowWidth < 660}>:</Dotdot>
+
+                                    {/* 선택박스 */}
                                     <InputPlace smallerScreen={windowWidth < 660}>
                                         <SelectBox name="name"
                                                    value={themeDatas[selectedThemeIndex].name}
@@ -360,23 +387,31 @@ const Reservation = (props) => {
                                         </SelectBox>
                                     </InputPlace>
                                 </Bundle>
+
+
+                                {/* 날짜 */}
                                 <Bundle smallerScreen={windowWidth < 660}>
                                     <ThemeTitleStyle smallerScreen={windowWidth < 660}>날짜</ThemeTitleStyle>
                                     <Dotdot smallerScreen={windowWidth < 660}>:</Dotdot>
+
+                                    {/* 선택박스 */}
                                     <InputPlace style={{ position: "relative" }}
                                                 smallerScreen={windowWidth < 660}>
                                         <DropdownButton onClick={handleToggleCalendar}
                                                         smallerScreen={windowWidth < 660}>
                                                 {nowDate}
                                         </DropdownButton>
-                                        <CalendarWrapper ref={calendarRef} isOpen={isOpen}>
+
+                                        <CalendarWrapper ref={calendarRef}
+                                                         isOpen={isOpen}>
                                             <Calendar
                                                 onChange={handleDateChange}
                                                 value={value}
                                                 formatDay={(locale, date) => moment(date).format("DD")}
-                                                tileDisabled={disablePastDates}
-                                            />
+                                                tileDisabled={disablePastDates}/>
+
                                         </CalendarWrapper>
+
                                     </InputPlace>
                                 </Bundle>
                             </TitleAndDateWrapper>
