@@ -18,22 +18,18 @@
 
 ## 작동 화면
 
-![1메인](https://github.com/user-attachments/assets/313f9fd3-8263-418d-aa15-ecac98c07b5d)
-<br/><br/><br/>
-<hr>
-<br/><br/><br/>
-
-![2테마](https://github.com/user-attachments/assets/03b76280-f5fb-4677-b157-9378d4250942)
-<br/><br/><br/>
-<hr>
+![1메인(테두리추가)](https://github.com/user-attachments/assets/11fccb3b-5280-4182-9570-8719477a57b8)
+<div align="center"><i>메인</i></div>
 <br/><br/><br/>
 
-![3예약진행](https://github.com/user-attachments/assets/60eabe66-b73c-41f5-910b-3d791001db51)
-<br/><br/><br/>
-<hr>
+![2테마(테두리추가)](https://github.com/user-attachments/assets/7fd5c14e-cd8b-4130-b8e2-c3bc218e2e79)
+<div align="center"><i>테마</i></div>
 <br/><br/><br/>
 
-![5후기글](https://github.com/user-attachments/assets/d9cda799-fb87-47d5-aaa1-0d2886d8e62f)
+![3예약(테두리추가)](https://github.com/user-attachments/assets/6dbc2f4c-6e26-4645-a317-0bd85ffd0e25)
+<div align="center"><i>예약 진행</i></div>
 <br/><br/><br/>
-<hr>
+
+![5후기글(테두리추가)](https://github.com/user-attachments/assets/18ba5c43-9363-4e65-a9f3-10cc29cd4737)
+<div align="center"><i>후기글 페이지</i></div>
 <br/><br/><br/>
